@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="免费在线三角函数计算器，sin/cos/tan/cot/sec/csc 六种函数一键计算。">
+  <title>三角函数计算器在线工具 - 114工具箱</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="index.html">
+    </a>
+    <a class="back" href="index.html">← 返回目录</a>
+  </header>
+  <main class="container">
+    <h1 class="page-title">三角函数计算器</h1>
+    <p class="page-sub">输入角度与有效位数，自动计算六种三角函数（角度制，无需外部依赖）</p>
+    <div class="panel">
+      <div class="row">
+        <div class="field" style="flex:1;margin-bottom:0">
+          <label>角度（度）</label>
+          <input type="number" id="deg" value="30" step="any">
+        </div>
+        <div class="field" style="flex:1;margin-bottom:0">
+          <label>有效位数</label>
+          <input type="number" id="sig" value="6" min="1" max="15" step="1">
+        </div>
+      </div>
+      <div class="out" id="out"></div>
+      <div class="hint" id="status">说明：角度采用「度」，可为负数或大于 360°。cot = 1/tan、sec = 1/cos、csc = 1/sin；函数无意义时显示「未定义」。</div>
+    </div>
+  </main>
+  <script src="assets/js/trig.js"></script>
+  <script src="assets/js/ui.js"></script>
+</body>
+</html>

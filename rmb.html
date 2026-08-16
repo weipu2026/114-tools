@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="免费人民币大写转换工具，数字金额转中文大写，报销填单必备。">
+  <title>人民币大写转换 - 数字金额转大写 - 114工具箱</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="index.html">
+    </a>
+    <a class="back" href="index.html">← 返回目录</a>
+  </header>
+  <main class="container">
+    <h1 class="page-title">人民币大写转换工具</h1>
+    <p class="page-sub">输入数字金额，自动转换为中文大写（报销填单专用）</p>
+    <div class="panel">
+      <div class="row">
+        <div style="flex:1">
+          <input type="text" id="amount" placeholder="例如：1234.56" inputmode="decimal">
+        </div>
+        <button class="btn ghost" id="clear">清空</button>
+      </div>
+      <div class="hint">支持最多两位小数，仅限非负数字；自动处理亿 / 万 / 仟分节与角分。</div>
+      <div class="result" id="output"></div>
+    </div>
+  </main>
+  <script src="assets/js/rmb.js"></script>
+  <script src="assets/js/ui.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="证件照尺寸对照表大全，1-60 寸照片尺寸与一寸、二寸等证件照规格速查。">
+  <title>证件照尺寸对照表 - 证件照尺寸计算器 - 114工具箱</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="index.html">
+    </a>
+    <a class="back" href="index.html">← 返回目录</a>
+  </header>
+  <main class="container">
+    <h1 class="page-title">证件照尺寸计算器</h1>
+    <p class="page-sub">输入寸数，计算标准照片尺寸（mm / cm / 像素）；含证件照与常用冲印规格速查</p>
+
+    <div class="panel">
+      <div class="row">
+        <div class="field" style="flex:1;margin-bottom:0">
+          <label>尺寸（寸）</label>
+          <input type="number" id="inch" value="5" step="any" min="0.1" placeholder="如 1 / 5 / 60">
+        </div>
+        <div class="field" style="flex:1;margin-bottom:0">
+          <label>宽高比（自定义时）</label>
+          <select id="ratio">
+            <option value="1.5">3 : 2（横版）</option>
+            <option value="1.333">4 : 3</option>
+            <option value="1.25">5 : 4</option>
+            <option value="1.4">7 : 5</option>
+            <option value="0.714">2 : 3（证件照竖版）</option>
+          </select>
+        </div>
+        <div class="field" style="flex:1;margin-bottom:0">
+          <label>DPI（像素换算）</label>
+          <select id="dpi">
+            <option value="72">72（屏幕）</option>
+            <option value="150">150</option>
+            <option value="300" selected>300（冲印）</option>
+            <option value="600">600</option>
+          </select>
+        </div>
+      </div>
+      <div class="out" id="out"></div>
+      <div class="hint" id="status">说明：标准规格优先查表（含证件照特殊尺寸）；未列入的按「长边 = 寸 × 25.4 mm」推算。像素 = mm ÷ 25.4 × DPI。</div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">证件照常用规格（查表优先）</div>
+      <div class="tbl" id="tbl_id"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">常用冲印规格（1 – 60 寸）</div>
+      <div class="tbl" id="tbl_photo"></div>
+    </div>
+  </main>
+  <script src="assets/js/photosize.js"></script>
+  <script src="assets/js/ui.js"></script>
+</body>
+</html>

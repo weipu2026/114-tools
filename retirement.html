@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="免费退休年龄计算器，按 2025 延迟退休新规计算法定退休年龄与弹性提前/延迟区间。">
+  <title>退休年龄计算器 - 2025延迟退休新规 - 114工具箱</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="index.html">
+    </a>
+    <a class="back" href="index.html">← 返回目录</a>
+  </header>
+  <main class="container">
+    <h1 class="page-title">退休年龄计算器</h1>
+    <p class="page-sub">依据 2025 年渐进式延迟法定退休年龄政策，计算法定退休年龄及弹性退休区间</p>
+    <div class="panel">
+      <div class="field">
+        <label>参保人群</label>
+        <select id="type">
+          <option value="male">男职工（原 60 岁）</option>
+          <option value="female50">女职工 · 工人（原 50 岁）</option>
+          <option value="female55">女职工 · 干部 / 技术（原 55 岁）</option>
+        </select>
+      </div>
+      <div class="row">
+        <div class="field" style="flex:1;margin-bottom:0">
+          <label>出生年份</label>
+          <input type="number" id="year" placeholder="如 1980" min="1945" max="2015" step="1">
+        </div>
+        <div class="field" style="flex:1;margin-bottom:0">
+          <label>出生月份</label>
+          <select id="month">
+            <option value="1">1 月</option>
+            <option value="2">2 月</option>
+            <option value="3">3 月</option>
+            <option value="4">4 月</option>
+            <option value="5">5 月</option>
+            <option value="6">6 月</option>
+            <option value="7">7 月</option>
+            <option value="8">8 月</option>
+            <option value="9">9 月</option>
+            <option value="10">10 月</option>
+            <option value="11">11 月</option>
+            <option value="12">12 月</option>
+          </select>
+        </div>
+      </div>
+      <div class="row" style="margin-top:14px">
+        <button class="btn" id="calc">计算</button>
+        <button class="btn ghost" id="clear">清空</button>
+      </div>
+      <div class="out" id="out"></div>
+      <div class="hint" id="status">说明：男职工每 4 个月延迟 1 个月（60→63）；女职工每 2 个月延迟 1 个月（50→55）、每 4 个月延迟 1 个月（55→58）。弹性提前 / 延迟最多各 3 年，提前不得低于原法定退休年龄。</div>
+    </div>
+  </main>
+  <script src="assets/js/retirement.js"></script>
+  <script src="assets/js/ui.js"></script>
+</body>
+</html>

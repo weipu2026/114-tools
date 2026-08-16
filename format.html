@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="免费文字排版工具，去乱码、去角标、去空行，智能整理文本。">
+  <title>文字一键排版工具 - 在线文本清理 - 114工具箱</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="index.html">
+    </a>
+    <a class="back" href="index.html">← 返回目录</a>
+  </header>
+  <main class="container">
+    <h1 class="page-title">文字一键排版工具</h1>
+    <p class="page-sub">勾选需要的整理项，一键清理从网页 / 论坛复制来的脏文本</p>
+    <div class="panel">
+      <div class="split">
+        <div>
+          <div class="pane-label">原始文本</div>
+          <textarea id="src" placeholder="在此粘贴需要整理的文字...&#10;（可贴一段 discuz 论坛复制来的文本测试）"></textarea>
+        </div>
+        <div>
+          <div class="pane-label">整理结果</div>
+          <textarea id="dst" readonly placeholder="整理结果将显示在这里"></textarea>
+        </div>
+      </div>
+
+      <div class="options" id="opts">
+        <label><input type="checkbox" data-key="hidden" checked> 去除隐藏乱码/零宽字符</label>
+        <label><input type="checkbox" data-key="sup" checked> 去除角标/上标</label>
+        <label><input type="checkbox" data-key="blank" checked> 压缩多余空行</label>
+        <label><input type="checkbox" data-key="fakeblank" checked> 清理"假空行"</label>
+        <label><input type="checkbox" data-key="trim" checked> 每行去首尾空格</label>
+        <label><input type="checkbox" data-key="merge" checked> 合并被折断的行</label>
+        <label><input type="checkbox" data-key="quan" checked> 半角→全角标点</label>
+        <label><input type="checkbox" data-key="multispace" checked> 合并连续空格</label>
+        <label><input type="checkbox" data-key="html"> 去除 HTML 标签</label>
+        <label><input type="checkbox" data-key="space"> 中英文间加空格</label>
+      </div>
+
+      <div class="row">
+        <button class="btn" id="run">一键排版</button>
+        <button class="btn ghost" id="copy">复制结果</button>
+        <button class="btn ghost" id="clear">清空</button>
+      </div>
+      <div class="hint" id="status">提示：规则可自由组合。若某类真实脏字符没被清掉，把样本发我，我帮你补对应规则。</div>
+    </div>
+  </main>
+  <script src="assets/js/format.js"></script>
+  <script src="assets/js/ui.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="免费股票涨跌停板计算器，自动区分沪深北交所与ST股，快速算出涨停价与跌停价。">
+  <title>股票涨跌停板计算器 - 114工具箱</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="index.html">
+    </a>
+    <a class="back" href="index.html">← 返回目录</a>
+  </header>
+  <main class="container">
+    <h1 class="page-title">股票涨跌停板计算器</h1>
+    <p class="page-sub">输入股票代码与昨收价，自动判断板块并计算涨停 / 跌停价格</p>
+    <div class="panel">
+      <div class="field">
+        <label>股票代码</label>
+        <input type="text" id="code" placeholder="如 600519、000001、300750、688981、830799" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>昨收价（元）</label>
+        <input type="number" id="price" placeholder="如 100" step="any" min="0">
+      </div>
+      <div class="row">
+        <button class="btn" id="calc">计算</button>
+        <button class="btn ghost" id="clear">清空</button>
+      </div>
+      <div class="out" id="out"></div>
+      <div class="hint" id="status">规则：主板 ±10%、科创板/创业板 ±20%、北交所（京交所）±30%（ST 股票与所在板块涨跌幅一致）。新股上市首日等特殊情况不适用。</div>
+    </div>
+  </main>
+  <script src="assets/js/limit.js"></script>
+  <script src="assets/js/ui.js"></script>
+</body>
+</html>

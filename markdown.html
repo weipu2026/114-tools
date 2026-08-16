@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="免费在线 Markdown 编辑器，左侧编辑、右侧实时预览。">
+  <title>Markdown 编辑器在线工具 - 114工具箱</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="index.html">
+    </a>
+    <a class="back" href="index.html">← 返回目录</a>
+  </header>
+  <main class="container">
+    <h1 class="page-title">Markdown 编辑器</h1>
+    <p class="page-sub">左侧编辑，右侧实时预览</p>
+    <div class="panel">
+      <div class="toolbar" id="md-toolbar">
+        <button type="button" data-act="h1">H1</button>
+        <button type="button" data-act="h2">H2</button>
+        <button type="button" data-act="bold">粗体</button>
+        <button type="button" data-act="italic">斜体</button>
+        <button type="button" data-act="strike">删除线</button>
+        <button type="button" data-act="quote">引用</button>
+        <button type="button" data-act="code">行内代码</button>
+        <button type="button" data-act="codeblock">代码块</button>
+        <button type="button" data-act="link">链接</button>
+        <button type="button" data-act="ul">列表</button>
+        <button type="button" data-act="ol">有序列表</button>
+        <button type="button" data-act="hr">分割线</button>
+      </div>
+      <div class="split">
+        <div>
+          <div class="pane-label">Markdown</div>
+          <textarea id="md" spellcheck="false"># 标题
+
+输入 **Markdown** 试试看，右侧会 *实时* 预览。
+
+- 列表项一
+- 列表项二
+
+```js
+console.log('hello world');
+```
+</textarea>
+        </div>
+        <div>
+          <div class="pane-label">预览</div>
+          <div class="preview" id="md-preview"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="assets/js/markdown.js"></script>
+  <script src="assets/js/ui.js"></script>
+</body>
+</html>

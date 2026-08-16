@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="免费在线日期计算器，计算 N 天前后日期、两个日期相差多少天。">
+  <title>日期计算器在线工具 - 114工具箱</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="index.html">
+    </a>
+    <a class="back" href="index.html">← 返回目录</a>
+  </header>
+  <main class="container">
+    <h1 class="page-title">日期计算器</h1>
+    <p class="page-sub">日期推算（N 天前 / 后是几号）· 日期间隔（相差多少天）</p>
+
+    <!-- 日期推算 -->
+    <div class="panel">
+      <div class="panel-title">日期推算</div>
+      <div class="field">
+        <label>基准日期 A</label>
+        <input type="text" id="s_date" placeholder="如 2026-08-14" autocomplete="off" inputmode="numeric">
+      </div>
+      <div class="row">
+        <div class="field" style="flex:1;margin-bottom:0">
+          <label>天数 B</label>
+          <input type="number" id="s_days" placeholder="如 30" min="0" step="1">
+        </div>
+        <div class="field" style="flex:1;margin-bottom:0">
+          <label>方向</label>
+          <select id="s_dir">
+            <option value="after">之后</option>
+            <option value="before">之前</option>
+          </select>
+        </div>
+      </div>
+      <div class="out" id="s_out"></div>
+      <div class="hint">日期格式：年-月-日，如 <b>2026-08-14</b>（也支持 2026/8/14、2026.8.14 或 2026年8月14日）。自动处理闰年、跨月、跨年。</div>
+    </div>
+
+    <!-- 日期间隔 -->
+    <div class="panel">
+      <div class="panel-title">日期间隔</div>
+      <div class="row">
+        <div class="field" style="flex:1;margin-bottom:0">
+          <label>日期 A</label>
+          <input type="text" id="d_a" placeholder="如 2026-08-14" autocomplete="off" inputmode="numeric">
+        </div>
+        <div class="field" style="flex:1;margin-bottom:0">
+          <label>日期 B</label>
+          <input type="text" id="d_b" placeholder="如 2026-09-01" autocomplete="off" inputmode="numeric">
+        </div>
+      </div>
+      <div class="out" id="d_out"></div>
+      <div class="hint">日期格式：年-月-日，如 <b>2026-08-14</b>（也支持 2026/8/14、2026.8.14 或 2026年8月14日）。</div>
+    </div>
+  </main>
+  <script src="assets/js/datecalc.js"></script>
+  <script src="assets/js/ui.js"></script>
+</body>
+</html>

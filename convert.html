@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="免费汉字简繁转换工具，简体繁体双向互转，一键切换。">
+  <title>汉字简繁转换 - 简体繁体在线转换 - 114工具箱</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="index.html">
+    </a>
+    <a class="back" href="index.html">← 返回目录</a>
+  </header>
+  <main class="container">
+    <h1 class="page-title">汉字简繁转换工具</h1>
+    <p class="page-sub">简体 ↔ 繁体 双向互转（基于 OpenCC，在线加载词库，已配置多 CDN 容错）</p>
+    <div class="panel">
+      <div class="split">
+        <div>
+          <div class="pane-label">输入</div>
+          <textarea id="src" placeholder="在此粘贴要转换的文字..."></textarea>
+        </div>
+        <div>
+          <div class="pane-label">输出</div>
+          <textarea id="dst" readonly placeholder="转换结果将显示在这里"></textarea>
+        </div>
+      </div>
+      <div class="row" style="margin-top:12px">
+        <button class="btn" data-dir="s2t">简体 → 繁体</button>
+        <button class="btn ghost" data-dir="t2s">繁体 → 简体</button>
+        <button class="btn ghost" id="copy">复制结果</button>
+        <button class="btn ghost" id="clear">清空</button>
+      </div>
+      <div class="hint" id="status"></div>
+    </div>
+  </main>
+  <script src="assets/js/convert.js"></script>
+  <script src="assets/js/ui.js"></script>
+</body>
+</html>

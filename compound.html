@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="免费在线复利计算器，支持年/季/月/日复利，本金、利率、年限知三求一。">
+  <title>复利计算器在线工具 - 114工具箱</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="index.html">
+    </a>
+    <a class="back" href="index.html">← 返回目录</a>
+  </header>
+  <main class="container">
+    <h1 class="page-title">复利计算器</h1>
+    <p class="page-sub">已知任意三项，求第四项；支持按年 / 季 / 月 / 日复利</p>
+    <div class="panel">
+      <div class="field">
+        <label>计算目标</label>
+        <select id="target">
+          <option value="A">求最终金额</option>
+          <option value="r">求年化增长率</option>
+          <option value="n">求年数</option>
+          <option value="P">求本金</option>
+        </select>
+      </div>
+      <div class="grid2">
+        <div class="field">
+          <label>本金 P（元）</label>
+          <input type="number" id="P" step="any" placeholder="如 10000">
+        </div>
+        <div class="field">
+          <label>年化增长率 r（%）</label>
+          <input type="number" id="r" step="any" placeholder="如 8">
+        </div>
+        <div class="field">
+          <label>年数 n</label>
+          <input type="number" id="n" step="any" placeholder="如 10">
+        </div>
+        <div class="field">
+          <label>复利次数 / 年 m</label>
+          <input type="number" id="m" step="any" value="1">
+        </div>
+        <div class="field" style="grid-column:1 / -1">
+          <label>目标金额 A（元）</label>
+          <input type="number" id="A" step="any" placeholder="如 21589.25">
+        </div>
+      </div>
+      <div class="row">
+        <button class="btn" id="calc">计算</button>
+        <button class="btn ghost" id="clear">清空</button>
+      </div>
+      <div class="result" id="out"></div>
+      <div class="hint" id="status">提示：m=1 按年、4 按季、12 按月、365 按日复利。</div>
+    </div>
+  </main>
+  <script src="assets/js/compound.js"></script>
+  <script src="assets/js/ui.js"></script>
+</body>
+</html>

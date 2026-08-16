@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="免费在线科学计算器，支持四则运算、三角函数、对数、阶乘、括号运算，即开即用。">
+  <title>科学计算器在线工具 - 114工具箱</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="index.html">
+    </a>
+    <a class="back" href="index.html">← 返回目录</a>
+  </header>
+  <main class="container">
+    <h1 class="page-title">科学计算器</h1>
+    <p class="page-sub">四则运算 · 括号 · 幂 · 阶乘 · 常用函数（实时预览结果）</p>
+    <div class="panel">
+      <div class="calc">
+        <div class="calc-modes">
+          <button type="button" data-mode="rad" class="on">RAD</button>
+          <button type="button" data-mode="deg">DEG</button>
+        </div>
+        <div class="calc-disp">
+          <div class="calc-expr" id="expr"></div>
+          <div class="calc-res" id="res"></div>
+        </div>
+        <div class="calc-grid">
+          <button type="button" data-k="C" class="ctl">C</button>
+          <button type="button" data-k="CE" class="ctl">CE</button>
+          <button type="button" data-k="back" class="ctl">⌫</button>
+          <button type="button" data-k="(">(</button>
+          <button type="button" data-k=")">)</button>
+
+          <button type="button" data-k="sin(">sin</button>
+          <button type="button" data-k="cos(">cos</button>
+          <button type="button" data-k="tan(">tan</button>
+          <button type="button" data-k="log(">log</button>
+          <button type="button" data-k="ln(">ln</button>
+
+          <button type="button" data-k="sqrt(">√</button>
+          <button type="button" data-k="^2">x²</button>
+          <button type="button" data-k="^-1">1/x</button>
+          <button type="button" data-k="^">x^y</button>
+          <button type="button" data-k="!">n!</button>
+
+          <button type="button" data-k="pi">π</button>
+          <button type="button" data-k="e">e</button>
+          <button type="button" data-k="%">%</button>
+          <button type="button" data-k="/">÷</button>
+          <button type="button" data-k="*">×</button>
+
+          <button type="button" data-k="7">7</button>
+          <button type="button" data-k="8">8</button>
+          <button type="button" data-k="9">9</button>
+          <button type="button" data-k="-">−</button>
+          <button type="button" data-k="+">+</button>
+
+          <button type="button" data-k="4">4</button>
+          <button type="button" data-k="5">5</button>
+          <button type="button" data-k="6">6</button>
+          <button type="button" data-k="±" class="ctl">±</button>
+          <button type="button" data-k="=" class="ctl eq">=</button>
+
+          <button type="button" data-k="1">1</button>
+          <button type="button" data-k="2">2</button>
+          <button type="button" data-k="3">3</button>
+          <button type="button" data-k=".">.</button>
+          <button type="button" data-k="0">0</button>
+        </div>
+        <div class="hint">支持函数：sin cos tan asin acos atan log(10为底) ln sqrt abs exp；常量 π、e；运算符 + − × ÷ ^ ！ %</div>
+      </div>
+    </div>
+  </main>
+  <script src="assets/js/scientific.js"></script>
+  <script src="assets/js/ui.js"></script>
+</body>
+</html>

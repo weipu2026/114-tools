@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="免费在线房地产计算器，亩数换算、建筑面积、楼面地价、容积率一键计算。">
+  <title>房地产计算器在线工具 - 114工具箱</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="index.html">
+    </a>
+    <a class="back" href="index.html">← 返回目录</a>
+  </header>
+  <main class="container">
+    <h1 class="page-title">房地产计算器</h1>
+    <p class="page-sub">亩数换算、建筑面积、楼面地价、容积率等常用计算</p>
+
+    <div class="tabs" id="tabs">
+      <button class="active" data-tab="unit">单位换算</button>
+      <button data-tab="area">建筑面积</button>
+      <button data-tab="floor">楼面地价</button>
+      <button data-tab="far">容积率</button>
+      <button data-tab="deal">地价分析</button>
+    </div>
+
+    <!-- 单位换算 -->
+    <div class="tabpane active panel" data-pane="unit">
+      <div class="field">
+        <label>输入数值</label>
+        <input type="number" id="u_val" value="1" step="any">
+      </div>
+      <div class="field">
+        <label>单位</label>
+        <select id="u_unit">
+          <option value="mu">亩</option>
+          <option value="m2">平方米</option>
+          <option value="ha">公顷</option>
+          <option value="km2">平方公里</option>
+        </select>
+      </div>
+      <div class="out" id="u_out"></div>
+      <div class="hint">换算关系：1 亩 = 666.667 平方米 = 0.0667 公顷；1 公顷 = 15 亩；1 平方公里 = 1500 亩</div>
+    </div>
+
+    <!-- 建筑面积 -->
+    <div class="tabpane panel" data-pane="area">
+      <div class="field"><label>亩数</label><input type="number" id="a_mu" placeholder="如 10" step="any"></div>
+      <div class="field"><label>容积率</label><input type="number" id="a_far" placeholder="如 2.5" step="any"></div>
+      <div class="out" id="a_out"></div>
+      <div class="hint">公式：土地面积 = 亩数 × 666.667；建筑面积 = 亩数 × 666.667 × 容积率</div>
+    </div>
+
+    <!-- 楼面地价 -->
+    <div class="tabpane panel" data-pane="floor">
+      <div class="field"><label>亩单价（万元/亩）</label><input type="number" id="f_price" placeholder="如 500" step="any"></div>
+      <div class="field"><label>容积率</label><input type="number" id="f_far" placeholder="如 2.5" step="any"></div>
+      <div class="out" id="f_out"></div>
+      <div class="hint">公式：楼面地价 = 亩单价 × 10000 ÷ (666.667 × 容积率) ≈ 亩单价 × 15 ÷ 容积率（元/㎡）</div>
+    </div>
+
+    <!-- 容积率 -->
+    <div class="tabpane panel" data-pane="far">
+      <div class="field"><label>总建筑面积（㎡）</label><input type="number" id="r_floor" placeholder="如 25000" step="any"></div>
+      <div class="field"><label>土地面积</label><input type="number" id="r_land" placeholder="如 10" step="any"></div>
+      <div class="field">
+        <label>土地面积单位</label>
+        <select id="r_unit"><option value="mu">亩</option><option value="m2">平方米</option></select>
+      </div>
+      <div class="out" id="r_out"></div>
+      <div class="hint">公式：容积率 = 总建筑面积 ÷ 土地面积（㎡）</div>
+    </div>
+
+    <!-- 地价分析 -->
+    <div class="tabpane panel" data-pane="deal">
+      <div class="field"><label>亩数</label><input type="number" id="d_mu" placeholder="如 10" step="any"></div>
+      <div class="field"><label>亩单价（万元/亩）</label><input type="number" id="d_price" placeholder="如 500" step="any"></div>
+      <div class="field"><label>容积率</label><input type="number" id="d_far" placeholder="如 2.5" step="any"></div>
+      <div class="out" id="d_out"></div>
+      <div class="hint">综合计算土地总价、土地面积、楼面地价与楼面总价</div>
+    </div>
+  </main>
+  <script src="assets/js/calc.js"></script>
+  <script src="assets/js/ui.js"></script>
+</body>
+</html>

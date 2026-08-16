@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="免费半角全角转换工具，去多余空格、英文标点转中文、去引用角标。">
+  <title>半角全角转换 - 半角转全角在线工具 - 114工具箱</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="index.html">
+    </a>
+    <a class="back" href="index.html">← 返回目录</a>
+  </header>
+  <main class="container">
+    <h1 class="page-title">半角转全角工具</h1>
+    <p class="page-sub">去除多余空格 · 英文标点转中文 · 去除引用角标（代码与链接自动保留）</p>
+    <div class="panel">
+      <div class="split">
+        <div>
+          <div class="pane-label">输入</div>
+          <textarea id="src" placeholder="在此粘贴需要整理的文本...&#10;示例：本文 有 很多 空格 [1] 和 英文,标点。"></textarea>
+        </div>
+        <div>
+          <div class="pane-label">输出</div>
+          <textarea id="dst" readonly placeholder="整理结果将显示在这里"></textarea>
+        </div>
+      </div>
+
+      <div class="options" id="opts">
+        <label><input type="checkbox" data-key="space" checked> 去除多余空格</label>
+        <label><input type="checkbox" data-key="punct" checked> 英文标点转中文标点</label>
+        <label><input type="checkbox" data-key="ref" checked> 去除引用角标</label>
+      </div>
+
+      <div class="row">
+        <button class="btn" id="run">一键整理</button>
+        <button class="btn ghost" id="copy">复制结果</button>
+        <button class="btn ghost" id="clear">清空</button>
+      </div>
+      <div class="hint" id="status">规则说明：处理顺序为「标点 → 空格 → 角标」。Markdown 代码块 / 行内代码、URL 中的内容原样保留。</div>
+    </div>
+  </main>
+  <script src="assets/js/halfwidth.js"></script>
+  <script src="assets/js/ui.js"></script>
+</body>
+</html>

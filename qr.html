@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="免费在线二维码生成器，文字、网址一键生成二维码，可下载 PNG。">
+  <title>二维码生成器在线工具 - 114工具箱</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="index.html">
+    </a>
+    <a class="back" href="index.html">← 返回目录</a>
+  </header>
+  <main class="container">
+    <h1 class="page-title">二维码生成器</h1>
+    <p class="page-sub">输入文字、网址或任意内容，生成可下载的二维码</p>
+    <div class="panel">
+      <div class="field">
+        <label>内容</label>
+        <textarea id="text" placeholder="输入网址、文字或任意内容…（支持中文）"></textarea>
+      </div>
+      <div class="row">
+        <div class="field" style="flex:1;margin-bottom:0">
+          <label>容错级别</label>
+          <select id="ecl">
+            <option value="L">L（约 7%）</option>
+            <option value="M" selected>M（约 15%）</option>
+            <option value="Q">Q（约 25%）</option>
+            <option value="H">H（约 30%）</option>
+          </select>
+        </div>
+        <div class="field" style="flex:1;margin-bottom:0">
+          <label>尺寸</label>
+          <select id="size">
+            <option value="4">小</option>
+            <option value="6" selected>中</option>
+            <option value="8">大</option>
+            <option value="10">特大</option>
+          </select>
+        </div>
+      </div>
+      <div class="row" style="margin-top:12px">
+        <button class="btn" id="gen">生成二维码</button>
+        <button class="btn ghost" id="download" disabled>下载 PNG</button>
+        <button class="btn ghost" id="copy">复制图片</button>
+      </div>
+      <div class="qr-wrap" id="qr"></div>
+      <div class="hint" id="status">提示：中文内容可正常生成；首次使用需联网加载二维码库（CDN，已配置多源容错）。</div>
+    </div>
+  </main>
+  <script src="assets/js/qr.js"></script>
+  <script src="assets/js/ui.js"></script>
+</body>
+</html>
