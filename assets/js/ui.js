@@ -71,7 +71,15 @@
     var f = document.createElement('footer');
     f.id = 'ui-foot';
     f.className = 'ui-foot';
-    f.textContent = '所有数据均在浏览器本地处理，不会上传 · 工具箱';
+    var text = document.createElement('span');
+    text.textContent = '所有数据均在浏览器本地处理，不会上传 · ';
+    var link = document.createElement('a');
+    link.href = 'https://github.com/weipu2026/114-tools';
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.textContent = '114工具箱';
+    f.appendChild(text);
+    f.appendChild(link);
     document.body.appendChild(f);
   }
 

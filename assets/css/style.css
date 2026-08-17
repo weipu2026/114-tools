@@ -2,7 +2,7 @@
   color-scheme: light;
   --bg: #f5f7fa;
   --surface: #ffffff;
-  --border: #d3dbe4;
+  --border: #b9c4d2;
   --text: #1f2933;
   --muted: #6b7280;
   --primary: #185fa5;
@@ -20,13 +20,13 @@
     color-scheme: dark;
     --bg: #0e151d;
     --surface: #182230;
-    --border: #3e4f63;
+    --border: #4f6280;
     --text: #e5eaf0;
     --muted: #93a1b3;
     --primary: #57a2e0;
     --primary-dark: #6fb0e6;
     --primary-soft: #16283c;
-    --input-bg: #1b2634;
+    --input-bg: #223147;
     --zebra: #1d2936;
     --chip-bg: #223041;
     --soft-border: #24405c;
@@ -398,6 +398,7 @@ select:focus { border-color: var(--primary); }
   text-align: center; color: var(--muted); font-size: 12px;
   padding: 26px 16px calc(20px + env(safe-area-inset-bottom));
 }
+.ui-foot a { color: var(--primary); text-decoration: none; }
 .ui-related {
   display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
   max-width: 960px; margin: 26px auto 0; padding: 0 20px;
