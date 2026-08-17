@@ -8,7 +8,8 @@
   --primary: #185fa5;
   --primary-dark: #134c84;
   --primary-soft: #e6f1fb;
-  --input-bg: #ffffff;
+  --input-bg: #f8fafc;
+  --input-border: #7d8ea3;
   --zebra: #fafbfc;
   --chip-bg: #eef2f7;
   --soft-border: #b5d4f4;
@@ -27,6 +28,7 @@
     --primary-dark: #6fb0e6;
     --primary-soft: #16283c;
     --input-bg: #223147;
+    --input-border: #7188a8;
     --zebra: #1d2936;
     --chip-bg: #223041;
     --soft-border: #24405c;
@@ -125,7 +127,7 @@ textarea {
   display: block;
   width: 100%;
   height: 420px;
-  border: 1.5px solid var(--border);
+  border: 1.5px solid var(--input-border);
   border-radius: 8px;
   padding: 12px;
   font-size: 14px;
@@ -139,7 +141,7 @@ textarea {
 textarea:focus-visible, input:focus-visible, select:focus-visible, button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 textarea:focus, input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(24, 95, 165, .14); }
 input[type="text"], input[type="number"], input[type="date"] {
-  border: 1.5px solid var(--border);
+  border: 1.5px solid var(--input-border);
   border-radius: 8px;
   padding: 10px 12px;
   font-size: 14px;
@@ -154,7 +156,7 @@ input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
   width: 18px; height: 18px; flex: none;
-  border: 1.5px solid var(--border);
+  border: 1.5px solid var(--input-border);
   border-radius: 5px;
   background: var(--input-bg);
   cursor: pointer;
@@ -173,7 +175,7 @@ input[type="checkbox"]:checked::after {
 select {
   appearance: none;
   -webkit-appearance: none;
-  border: 1.5px solid var(--border);
+  border: 1.5px solid var(--input-border);
   border-radius: 8px;
   padding: 10px 34px 10px 12px;
   font-size: 14px;
@@ -186,6 +188,11 @@ select {
   transition: border-color var(--t), box-shadow var(--t);
 }
 select:focus { border-color: var(--primary); }
+@media (prefers-color-scheme: dark) {
+  select {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2 4l4 4 4-4' fill='none' stroke='%2393a1b3' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  }
+}
 
 .btn {
   background: var(--primary);

@@ -52,11 +52,11 @@
   function logoHTML() {
     return '<svg class="logo" viewBox="26 46 506 100" aria-hidden="true">' +
       '<circle cx="72" cy="92" r="32" fill="none" stroke="#F97316" stroke-width="12"/>' +
-      '<rect x="72" y="86" width="72" height="12" rx="3" fill="#F97316"/>' +
-      '<rect x="112" y="98" width="9" height="20" rx="2" fill="#F97316"/>' +
-      '<rect x="126" y="98" width="9" height="15" rx="2" fill="#F97316"/>' +
-      '<text x="72" y="102" text-anchor="middle" font-family="\'PingFang SC\',\'Microsoft YaHei\',sans-serif" font-size="34" font-weight="800" fill="#F97316">工</text>' +
-      '<text x="158" y="124" font-family="\'PingFang SC\',\'Microsoft YaHei\',sans-serif" font-size="70" font-weight="800"><tspan fill="#F97316">114</tspan><tspan fill="var(--text)">工具箱</tspan></text>' +
+      '<rect x="104" y="86" width="50" height="12" rx="3" fill="#F97316"/>' +
+      '<rect x="120" y="98" width="9" height="20" rx="2" fill="#F97316"/>' +
+      '<rect x="134" y="98" width="9" height="15" rx="2" fill="#F97316"/>' +
+      '<text x="72" y="107" text-anchor="middle" font-family="\'PingFang SC\',\'Microsoft YaHei\',sans-serif" font-size="34" font-weight="800" fill="#F97316">工</text>' +
+      '<text x="168" y="124" font-family="\'PingFang SC\',\'Microsoft YaHei\',sans-serif" font-weight="800"><tspan fill="#F97316" font-size="85">114</tspan><tspan fill="var(--text)" font-size="70">工具箱</tspan></text>' +
       '</svg>';
   }
   function injectLogo() {
