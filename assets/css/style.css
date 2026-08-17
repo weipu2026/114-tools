@@ -2,7 +2,7 @@
   color-scheme: light;
   --bg: #f5f7fa;
   --surface: #ffffff;
-  --border: #e3e8ef;
+  --border: #d3dbe4;
   --text: #1f2933;
   --muted: #6b7280;
   --primary: #185fa5;
@@ -20,13 +20,13 @@
     color-scheme: dark;
     --bg: #0e151d;
     --surface: #182230;
-    --border: #2a3747;
+    --border: #3e4f63;
     --text: #e5eaf0;
     --muted: #93a1b3;
     --primary: #57a2e0;
     --primary-dark: #6fb0e6;
     --primary-soft: #16283c;
-    --input-bg: #0e151d;
+    --input-bg: #1b2634;
     --zebra: #1d2936;
     --chip-bg: #223041;
     --soft-border: #24405c;
@@ -67,7 +67,7 @@ a { color: var(--primary); text-decoration: none; }
 #tool-search {
   display: block; width: 100%; max-width: 440px;
   margin: 10px auto 0;
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   border-radius: 999px;
   padding: 10px 20px;
   font-size: 14px;
@@ -93,6 +93,7 @@ a { color: var(--primary); text-decoration: none; }
   grid-template-rows: auto auto;
   column-gap: 12px;
   align-items: center;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, .06);
   transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
 }
 .card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(16, 24, 40, .08); border-color: var(--primary); }
@@ -124,7 +125,7 @@ textarea {
   display: block;
   width: 100%;
   height: 420px;
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   border-radius: 8px;
   padding: 12px;
   font-size: 14px;
@@ -138,7 +139,7 @@ textarea {
 textarea:focus-visible, input:focus-visible, select:focus-visible, button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 textarea:focus, input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(24, 95, 165, .14); }
 input[type="text"], input[type="number"], input[type="date"] {
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   border-radius: 8px;
   padding: 10px 12px;
   font-size: 14px;
@@ -172,7 +173,7 @@ input[type="checkbox"]:checked::after {
 select {
   appearance: none;
   -webkit-appearance: none;
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   border-radius: 8px;
   padding: 10px 34px 10px 12px;
   font-size: 14px;

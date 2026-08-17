@@ -70,7 +70,7 @@
 
 - 原生 HTML5 + CSS3 + JavaScript（ES2015+）
 - 无框架、无打包器，直接由浏览器加载
-- 仅 4 个工具按需加载外部 CDN 组件（均为纯前端库，双 CDN 容错）：
+- 仅 3 个工具按需加载外部 CDN 组件（均为纯前端库，双 CDN 容错）：
   - 简繁转换 → `opencc-js`
   - Markdown 编辑 → `marked` + `DOMPurify`
   - 二维码 → `qrcode-generator`
