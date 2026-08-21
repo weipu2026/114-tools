@@ -17,3 +17,6 @@ desktop.ini
 
 # 工作区数据（WorkBuddy 等本地工具）
 .workbuddy/
+
+# Cloudflare Wrangler 本地缓存（部署产生的临时文件）
+.wrangler/
