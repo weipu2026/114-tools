@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="免费在线字数统计工具，实时统计总字数、汉字、英文单词、标点、数字、字母、字符数。">
+  <title>字数统计工具 - 在线统计字数汉字标点数字 - 114工具箱</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="index.html">
+    </a>
+    <a class="back" href="index.html">← 返回目录</a>
+  </header>
+  <main class="container">
+    <h1 class="page-title">字数统计工具</h1>
+    <p class="page-sub">输入文字，实时统计字数、汉字、英文、标点、数字等</p>
+    <div class="panel">
+      <div class="pane-label">输入文本</div>
+      <textarea id="text" spellcheck="false" placeholder="在此粘贴或输入要统计的文字...">你好 world！今天 2026 年。Hello, 123 test.</textarea>
+      <div class="stat-line" id="out"></div>
+      <div class="hint" id="status">说明：总字数 = 汉字 + 英文单词数（连续字母/数字算 1 个词）；数据仅在本地处理，不上传。</div>
+    </div>
+  </main>
+  <script src="assets/js/wordcount.js"></script>
+  <script src="assets/js/ui.js"></script>
+</body>
+</html>

@@ -16,8 +16,10 @@
   <url><loc>https://114448.xyz/datecalc.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://114448.xyz/password.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://114448.xyz/qr.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://114448.xyz/jwtsecret.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://114448.xyz/markdown.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://114448.xyz/format.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://114448.xyz/wordcount.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://114448.xyz/countdown.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://114448.xyz/keyboard.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://114448.xyz/wakelock.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>

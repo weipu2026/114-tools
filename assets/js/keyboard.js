@@ -67,10 +67,13 @@ if (typeof document !== 'undefined') {
     }
 
     function handleDown(e) {
-      // Tab 放行，避免键盘用户焦点被锁死在页内；其余拦截浏览器默认快捷键
+      // Tab 放行，避免键盘用户焦点被锁死在页内
       if (e.key === 'Tab') { last = e; render(); return; }
+      // 聚焦在链接/按钮等可交互元素上时放行 Enter/Space，避免键盘用户无法激活
+      const tag = (e.target && e.target.tagName) || '';
+      if (/^(A|BUTTON|INPUT|SELECT|TEXTAREA)$/.test(tag) && (e.key === 'Enter' || e.key === ' ')) return;
       e.preventDefault(); // 拦截 F5 刷新、Ctrl+W 关页等
-      if (!e.repeat) pressed.add(keyName(e));
+      if (!e.repeat) pressed.add(e.code); // 用物理键 code 做键，避免 Shift 组合时 key 变化导致卡键
       last = e;
       render();
     }
@@ -78,7 +81,7 @@ if (typeof document !== 'undefined') {
     function handleUp(e) {
       if (e.key === 'Tab') return;
       e.preventDefault();
-      pressed.delete(keyName(e));
+      pressed.delete(e.code);
       render();
     }
 

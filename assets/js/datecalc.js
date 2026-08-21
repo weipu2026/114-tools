@@ -54,7 +54,7 @@ if (typeof document !== 'undefined') {
     if (!raw.trim()) { out(el, []); return; }
     const a = parseDate(raw);
     if (!a) { out(el, [['输入有误', FORMAT_HINT]]); return; }
-    const days = parseInt(document.getElementById('s_days').value, 10);
+    const days = Number(document.getElementById('s_days').value);
     if (!Number.isInteger(days) || days < 0) {
       out(el, [['基准日期', fmt(a) + '（' + weekText(a) + '）'], ['提示', '天数请输入非负整数']]);
       return;
@@ -74,7 +74,7 @@ if (typeof document !== 'undefined') {
 
   ['s_date', 's_days', 's_dir'].forEach((id) => {
     const el = document.getElementById(id);
-    el.addEventListener(id === 's_date' ? 'input' : id === 's_days' ? 'input' : 'change', renderShift);
+    el.addEventListener(id === 's_dir' ? 'change' : 'input', renderShift);
   });
 
   // ---- 日期间隔 ----

@@ -62,7 +62,10 @@
   function injectLogo() {
     var html = logoHTML();
     var brand = document.querySelector('.brand');
-    if (brand && !brand.querySelector('.logo')) brand.insertAdjacentHTML('afterbegin', html);
+    if (brand && !brand.querySelector('.logo')) {
+      brand.insertAdjacentHTML('afterbegin', html);
+      brand.setAttribute('aria-label', '114工具箱 · 返回首页');
+    }
   }
 
   /* ---- 3. 页脚信任文案 ---- */
@@ -95,13 +98,15 @@
     datecalc: { title: '日期计算器', related: ['retirement', 'countdown'] },
     photosize: { title: '证件照尺寸计算器', related: ['calc', 'imgcomp'] },
     imgcomp: { title: '图片压缩工具', related: ['photosize', 'qr'] },
-    password: { title: '随机密码生成器', related: ['qr'] },
+    password: { title: '随机密码生成器', related: ['qr', 'jwtsecret'] },
     qr: { title: '二维码生成器', related: ['password'] },
+    jwtsecret: { title: 'JWT 密钥生成器', related: ['password', 'qr'] },
     rmb: { title: '人民币大写转换工具', related: ['convert', 'halfwidth'] },
     convert: { title: '汉字简繁转换工具', related: ['halfwidth', 'format'] },
     halfwidth: { title: '半角转全角工具', related: ['convert', 'format'] },
     markdown: { title: 'Markdown 编辑器', related: ['format', 'halfwidth'] },
     format: { title: '文字一键排版工具', related: ['halfwidth', 'convert'] },
+    wordcount: { title: '字数统计工具', related: ['halfwidth', 'format'] },
     countdown: { title: '倒计时器', related: ['datecalc', 'retirement'] },
     keyboard: { title: '键盘按键检测工具', related: ['wakelock'] },
     wakelock: { title: '屏幕常亮工具', related: ['keyboard', 'countdown'] }
@@ -154,9 +159,9 @@
     });
   }
 
-  /* ---- 6. 无障碍：结果区供屏幕阅读器朗读 ---- */
+  /* ---- 6. 无障碍：结果区供屏幕阅读器朗读（排除逐键刷新的 .preview 预览区，避免噪音） ---- */
   function enhanceA11y() {
-    document.querySelectorAll('.out, .result, .preview').forEach(function (el) {
+    document.querySelectorAll('.out, .result').forEach(function (el) {
       if (!el.hasAttribute('aria-live')) el.setAttribute('aria-live', 'polite');
     });
   }

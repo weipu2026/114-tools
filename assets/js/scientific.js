@@ -78,9 +78,9 @@ function sciToRPN(tokens) {
         if (top.t === 'lp') break;
         if (top.t === 'func') { out.push(st.pop()); continue; }
         if (tk.v === 'u-') {
-          // 一元负号：栈顶为 ^ 时不弹出，使其作为 ^ 的右操作数（如 2^-3 = 2^(-3)）
+          // 一元负号（右结合）：栈顶为 ^ 时不弹出，使其作为 ^ 的右操作数（如 2^-3 = 2^(-3)）
           if (top.v === '^') break;
-          if (top.prec >= tk.prec) { out.push(st.pop()); continue; }
+          if (top.prec > tk.prec) { out.push(st.pop()); continue; }
           break;
         }
         if ((top.prec > tk.prec) || (top.prec === tk.prec && top.assoc === 'L')) out.push(st.pop());

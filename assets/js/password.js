@@ -20,12 +20,12 @@ function secureRandomInt(max) {
     do { c.getRandomValues(buf); x = buf[0]; } while (x >= limit);
     return x % max;
   }
-  // node 回退（浏览器无 getRandomValues 时不会走到这里）
+  // node 回退（仅测试环境；现代浏览器均走上面的 getRandomValues 分支）
   // eslint-disable-next-line
   const nodeCrypto = require('crypto');
-  const limit = 256 - (256 % max);
+  const limit = 0x100000000 - (0x100000000 % max);
   let x;
-  do { x = nodeCrypto.randomBytes(1)[0]; } while (x >= limit);
+  do { x = nodeCrypto.randomBytes(4).readUInt32BE(0); } while (x >= limit);
   return x % max;
 }
 

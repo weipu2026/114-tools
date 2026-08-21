@@ -20,7 +20,7 @@ function compoundSolve(target, P, r, n, m, A) {
     if (!(P > 0) || !(A > 0) || !(m > 0)) return { ok: false, msg: '请填写有效的本金、目标金额、增长率、复利次数' };
     if (!baseValid(m)) return { ok: false, msg: '增长率过低，复利计算无意义（须大于 -' + m + '%）' };
     const nn = Math.log(A / P) / (m * Math.log(1 + rd / m));
-    if (!(nn > 0)) return { ok: false, msg: '该条件下无法达到目标金额（需负增长或目标低于本金）' };
+    if (!isFinite(nn) || !(nn > 0)) return { ok: false, msg: '该条件下无法达到目标金额（增长率为 0% 时需目标等于本金，负增长时需目标低于本金）' };
     return { ok: true, out: { n: nn } };
   }
   if (target === 'P') {

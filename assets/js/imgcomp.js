@@ -56,9 +56,10 @@ if (typeof document !== 'undefined') {
       if (!blob) { status.textContent = '压缩失败，请重试'; return; }
       lastBlob = blob;
       const ratio = lastSize > 0 ? Math.round(100 * (1 - blob.size / lastSize)) : 0;
+      const ratioStr = ratio >= 0 ? '-' + ratio : '+' + (-ratio); // 压缩为负(变大)时显示 +N%
       out.innerHTML =
         '<div class="out-row"><span>原大小</span><span class="v">' + formatBytes(lastSize) + '</span></div>' +
-        '<div class="out-row"><span>压缩后</span><span class="v">' + formatBytes(blob.size) + '　（-' + ratio + '%）</span></div>' +
+        '<div class="out-row"><span>压缩后</span><span class="v">' + formatBytes(blob.size) + '　（' + ratioStr + '%）</span></div>' +
         '<div class="out-row"><span>尺寸</span><span class="v">' + w + ' × ' + h + 'px</span></div>';
       dlBtn.disabled = false;
       status.textContent = '压缩完成';

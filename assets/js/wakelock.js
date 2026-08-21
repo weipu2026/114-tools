@@ -51,6 +51,7 @@ if (typeof document !== 'undefined') {
     }
 
     btn.addEventListener('click', () => {
+      if (!supported) return; // 不支持时直接忽略，避免进入 desired=true 的混乱状态
       if (desired) { releaseLock(); return; }
       desired = true;
       updateUI();

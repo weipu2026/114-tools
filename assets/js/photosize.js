@@ -46,7 +46,7 @@ function photoCalc(inch, ratio) {
   const safeRatio = isFinite(r) && r > 0 ? r : 1.5;
   const longSide = n * INCH_MM;
   const shortSide = longSide / safeRatio;
-  return { w: Math.round(shortSide), h: Math.round(longSide), exact: false };
+  return { w: Math.round(shortSide), h: Math.round(longSide), exact: false, ratio: safeRatio };
 }
 
 // 毫米换算为像素
@@ -85,7 +85,7 @@ if (typeof document !== 'undefined') {
     const pxW = mmToPx(r.w, dpi);
     const pxH = mmToPx(r.h, dpi);
     out.innerHTML =
-      row('尺寸', inch + ' 寸' + (r.exact ? '（标准规格）' : '（按 ' + ratio + ':1 比例推算）')) +
+      row('尺寸', inch + ' 寸' + (r.exact ? '（标准规格）' : '（按 ' + r.ratio + ':1 比例推算）')) +
       row('宽 × 高', fmtNum(r.w) + ' × ' + fmtNum(r.h) + ' mm') +
       row('换算厘米', fmtNum(r.w / 10) + ' × ' + fmtNum(r.h / 10) + ' cm') +
       row('像素 @' + dpi + ' DPI', pxW + ' × ' + pxH + ' px');
