@@ -95,6 +95,8 @@
     trig: { title: '三角函数计算器', related: ['scientific', 'circle'] },
     circle: { title: '圆要素转换器', related: ['trig', 'calc'] },
     retirement: { title: '退休年龄计算器', related: ['datecalc', 'calc'] },
+    tax: { title: '个税/工资计算器', related: ['rmb', 'compound'] },
+    mortgage: { title: '房贷计算器', related: ['compound', 'calc'] },
     datecalc: { title: '日期计算器', related: ['retirement', 'countdown'] },
     photosize: { title: '证件照尺寸计算器', related: ['calc', 'imgcomp'] },
     imgcomp: { title: '图片压缩工具', related: ['photosize', 'qr'] },

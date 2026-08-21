@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="2026年最新个税计算器，5000元起征点，五险一金与专项附加扣除自动计算，支持年终奖单独计税，一键出税后工资。">
+  <title>个税/工资计算器 - 2026最新个税起征点 - 114工具箱</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="index.html"></a>
+    <a class="back" href="index.html">← 返回目录</a>
+  </header>
+  <main class="container">
+    <h1 class="page-title">个税 / 工资计算器</h1>
+    <p class="page-sub">按2026年最新标准：起征点5000元/月 · 7级超额累进税率 · 五险一金扣除 · 年终奖单独计税</p>
+    <div class="panel">
+      <div class="row">
+        <div class="field" style="flex:1;margin-bottom:0">
+          <label>税前月薪（元）</label>
+          <input type="number" id="salary" value="15000" min="0" step="100">
+        </div>
+        <div class="field" style="flex:1;margin-bottom:0">
+          <label>社保缴费基数（元）</label>
+          <input type="number" id="base" value="15000" min="0" step="100">
+        </div>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <div class="field" style="flex:1;margin-bottom:0">
+          <label>公积金比例（%）</label>
+          <input type="number" id="hf" value="12" min="5" max="12" step="1">
+        </div>
+        <div class="field" style="flex:1;margin-bottom:0">
+          <label>专项附加扣除（元/月）</label>
+          <input type="number" id="deduction" value="0" min="0" step="100">
+        </div>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <div class="field" style="flex:1;margin-bottom:0">
+          <label>年终奖（元，无则留空）</label>
+          <input type="number" id="bonus" value="0" min="0" step="100">
+        </div>
+      </div>
+      <div class="hint">专项附加扣除参考：3岁以下/子女教育各2000元/月/人 · 赡养老人独生3000元/月 · 住房贷款利息1000元/月 · 住房租金800-1500元/月 · 继续教育400元/月</div>
+      <div class="result" id="out" style="margin-top:14px"></div>
+      <details id="detailWrap" style="margin-top:12px">
+        <summary style="cursor:pointer;font-size:14px;color:var(--primary)">查看12个月逐月明细（累计预扣法）</summary>
+        <div id="detail" style="overflow:auto;margin-top:8px"></div>
+      </details>
+      <div class="hint" id="status" style="margin-top:8px"></div>
+    </div>
+  </main>
+  <script src="assets/js/tax.js"></script>
+  <script src="assets/js/ui.js"></script>
+</body>
+</html>

@@ -352,6 +352,20 @@ select:focus { border-color: var(--primary); }
 .stat-line .stat-item { white-space: nowrap; }
 .stat-line b { margin-left: 4px; font-size: 16px; font-weight: 700; color: var(--primary); font-variant-numeric: tabular-nums; }
 
+/* 个税/房贷结果行 */
+.tx-summary { display: flex; flex-direction: column; gap: 2px; }
+.tx-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; font-size: 14px; }
+.tx-row span { color: var(--muted); }
+.tx-row b { font-variant-numeric: tabular-nums; }
+.tx-row.emph { font-size: 16px; font-weight: 600; border-top: 2px solid var(--primary); padding-top: 8px; margin-top: 4px; }
+.tx-row.emph b { color: var(--primary); }
+.tx-row.sep { border-top: 1px solid var(--border); margin-top: 2px; padding-top: 8px; }
+.tx-tbl { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 4px; }
+.tx-tbl th, .tx-tbl td { border: 1px solid var(--border); padding: 5px 8px; text-align: right; }
+.tx-tbl th { background: var(--primary-soft); font-weight: 600; text-align: center; }
+.tx-tbl td:first-child { text-align: center; }
+.tx-tbl tbody tr:nth-child(even) { background: var(--zebra); }
+
 .calc { max-width: 440px; margin: 0 auto; }
 .calc-disp {
   background: #0f172a; color: #e2e8f0; border-radius: 10px;

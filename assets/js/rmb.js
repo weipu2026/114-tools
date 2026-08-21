@@ -20,7 +20,13 @@ function rmbToChinese(input) {
 
   // 整数部分
   const intText = intToChinese(intStr, digit, unit, groupUnit);
-  let text = intText + '元';
+  let text;
+  if (intText === '零' && decStr !== '') {
+    // 金额不足1元且有小数部分，省略"零元"，如 0.05 → "零伍分"
+    text = '';
+  } else {
+    text = intText + '元';
+  }
 
   // 小数部分
   if (decStr === '') {
