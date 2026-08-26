@@ -32,8 +32,26 @@ function bytesToHex(bytes) {
   return h;
 }
 
+// 纯字母数字（仅 [A-Za-z0-9]，无 + - / = _ & 等符号）；length 按等熵换算
+function randomAlnum(length) {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let s = '';
+  while (s.length < length) {
+    const buf = randomBytes(length);
+    for (let i = 0; i < buf.length && s.length < length; i++) {
+      if (buf[i] < 248) s += chars[buf[i] % 62]; // 248 = 62×4，消除模偏差
+    }
+  }
+  return s;
+}
+
 // 主入口：按指定编码生成 n 字节密钥
 function generateJWTSecret(n, enc) {
+  if (enc === 'alnum') {
+    // 纯字母数字：62 进制约 5.95 位/字符，按等熵换算所需字符数
+    const length = Math.ceil(n * 8 / Math.log2(62));
+    return { ok: true, bytes: n, enc, secret: randomAlnum(length) };
+  }
   const bytes = randomBytes(n);
   const map = { base64: bytesToBase64, base64url: bytesToBase64URL, hex: bytesToHex };
   const fn = map[enc] || bytesToBase64;
@@ -41,7 +59,7 @@ function generateJWTSecret(n, enc) {
 }
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { randomBytes, bytesToBase64, bytesToBase64URL, bytesToHex, generateJWTSecret };
+  module.exports = { randomBytes, bytesToBase64, bytesToBase64URL, bytesToHex, randomAlnum, generateJWTSecret };
 }
 
 // ===== DOM 交互（浏览器环境） =====
@@ -62,7 +80,8 @@ if (typeof document !== 'undefined') {
     lastSecret = r.secret;
     out.textContent = r.secret;
     // Base64 补全说明：Hex 长度 = 字节数×2，Base64 长度 ≈ 字节数×1.37
-    status.textContent = '已生成 ' + n + ' 字节（' + (n * 8) + ' 位）· ' + enc + ' 编码 · 共 ' + r.secret.length + ' 字符';
+    const encLabel = { base64: 'Base64', base64url: 'Base64URL', hex: 'Hex', alnum: '纯字母数字' }[enc] || enc;
+    status.textContent = '已生成 ' + n + ' 字节（' + (n * 8) + ' 位）· ' + encLabel + ' 编码 · 共 ' + r.secret.length + ' 字符';
   }
 
   document.getElementById('gen').addEventListener('click', render);
