@@ -3,6 +3,7 @@
 
 // 等额本息
 function calcEqualInstallment(principal, annualRate, years) {
+  years = Math.max(1, years | 0);
   const mr = annualRate / 100 / 12;
   const n = years * 12;
   if (mr === 0) {
@@ -22,6 +23,7 @@ function calcEqualInstallment(principal, annualRate, years) {
 
 // 等额本金（返回首月/末月月供 + 总利息 + 还款表）
 function calcEqualPrincipal(principal, annualRate, years) {
+  years = Math.max(1, years | 0);
   const mr = annualRate / 100 / 12;
   const n = years * 12;
   const mp = principal / n;
@@ -55,6 +57,12 @@ function calcPrepayment(remainingPrincipal, annualRate, remainingMonths, prepayA
   if (newPrincipal <= 0) return { newPrincipal: 0, newMonths: 0, newMonthly: 0, savedInterest: 0, mode };
 
   const mr = annualRate / 100 / 12;
+  if (mr === 0) {
+    // 利率为 0：无利息，直接按剩余本金均分
+    const newMonths = mode === 'shorten' ? Math.ceil(newPrincipal / (remainingPrincipal / remainingMonths)) : remainingMonths;
+    const newMonthly = newPrincipal / newMonths;
+    return { newPrincipal, newMonths, newMonthly: Math.round(newMonthly * 100) / 100, savedInterest: 0, mode };
+  }
   if (mode === 'shorten') {
     // 缩短年限：月供不变
     const oldMonthly = calcEqualInstallment(remainingPrincipal, annualRate, remainingMonths / 12).monthlyPayment;
@@ -100,7 +108,7 @@ if (typeof document !== 'undefined') {
   function render() {
     const price = parseFloat(priceEl.value) || 0;
     const downRatio = parseFloat(downEl.value) / 100;
-    const years = parseInt(yearsEl.value, 10) || 30;
+    const years = Math.max(1, parseInt(yearsEl.value, 10) || 30);
     const rate = parseFloat(rateEl.value) || 3.5;
     const mode = modeEl.value;
 
@@ -139,12 +147,12 @@ if (typeof document !== 'undefined') {
       const max = Math.min(12, result.schedule.length);
       for (let i = 0; i < max; i++) {
         const s = result.schedule[i];
-        dhtml += '<tr><td>' + s.month + '</td><td>' + fmt(s.principal) + '</td><td>' + fmt(s.interest) + '</td><td>' + fmt(s.total) + '</td></tr>';
+        dhtml += '<tr><td>' + s.month + '</td><td>' + fmt(s.principal * 10000) + '</td><td>' + fmt(s.interest * 10000) + '</td><td>' + fmt(s.total * 10000) + '</td></tr>';
       }
       if (result.schedule.length > 12) {
-        dhtml += '<tr><td colspan="4" style="text-align:center;color:var(--muted)">… 中间省略 ' + (result.schedule.length - 12) + ' 期 …</td></tr>';
+        dhtml += '<tr><td colspan="4" style="text-align:center;color:var(--muted)">… 中间省略 ' + (result.schedule.length - 13) + ' 期 …</td></tr>';
         const last = result.schedule[result.schedule.length - 1];
-        dhtml += '<tr><td>' + last.month + '</td><td>' + fmt(last.principal) + '</td><td>' + fmt(last.interest) + '</td><td>' + fmt(last.total) + '</td></tr>';
+        dhtml += '<tr><td>' + last.month + '</td><td>' + fmt(last.principal * 10000) + '</td><td>' + fmt(last.interest * 10000) + '</td><td>' + fmt(last.total * 10000) + '</td></tr>';
       }
       dhtml += '</tbody></table>';
       detail.innerHTML = dhtml;

@@ -121,7 +121,8 @@ if (typeof document !== 'undefined') {
   function render() {
     const salary = parseFloat(salaryEl.value) || 0;
     const base = parseFloat(baseEl.value) || salary;
-    const hfRatio = parseFloat(hfEl.value) / 100;
+    const hfRaw = parseFloat(hfEl.value);
+    const hfRatio = isNaN(hfRaw) ? 0.12 : hfRaw / 100;
     const deduction = parseFloat(deductionEl.value) || 0;
     const bonus = parseFloat(bonusEl.value) || 0;
 

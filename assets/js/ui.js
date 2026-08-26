@@ -110,8 +110,7 @@
     format: { title: '文字一键排版工具', related: ['halfwidth', 'convert'] },
     wordcount: { title: '字数统计工具', related: ['halfwidth', 'format'] },
     countdown: { title: '倒计时器', related: ['datecalc', 'retirement'] },
-    keyboard: { title: '键盘按键检测工具', related: ['wakelock'] },
-    wakelock: { title: '屏幕常亮工具', related: ['keyboard', 'countdown'] }
+    keyboard: { title: '键盘按键检测工具', related: ['countdown'] }
   };
   function injectRelated() {
     if (document.getElementById('ui-related')) return;
