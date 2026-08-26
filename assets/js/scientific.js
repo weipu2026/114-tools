@@ -137,7 +137,7 @@ function sciEvalRPN(rpn, mode) {
           case '-': r = a - b; break;
           case '*': r = a * b; break;
           case '/': if (b === 0) throw new Error('除以零'); r = a / b; break;
-          case '^': r = Math.pow(a, b); break;
+          case '^': if (a === 0 && b < 0) throw new Error('零的负次幂未定义'); r = Math.pow(a, b); break;
           default: throw new Error('未知运算符');
         }
         st.push(r);

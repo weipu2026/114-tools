@@ -2,11 +2,12 @@
 // A = P * (1 + r/m)^(m*n)，r 为年化百分比
 // 参数 A 为「已知目标金额」，反求 r / n / P 时使用
 function compoundSolve(target, P, r, n, m, A) {
-  const rd = (r || 0) / 100;
+  const rd = Number.isFinite(r) ? r / 100 : NaN;
   // 复利底数须 > 0（即 rd > -m），否则 Math.pow 会产生 NaN 或荒谬结果
   const baseValid = (m) => rd > -m;
   if (target === 'A') {
     if (!(P > 0) || !(n > 0) || !(m > 0)) return { ok: false, msg: '请填写有效的本金、年数、复利次数' };
+    if (!Number.isFinite(r)) return { ok: false, msg: '请填写年化增长率（求最终金额需要增长率）' };
     if (!baseValid(m)) return { ok: false, msg: '增长率过低，复利计算无意义（须大于 -' + (m * 100) + '%）' };
     const Aout = P * Math.pow(1 + rd / m, m * n);
     return { ok: true, out: { A: Aout, interest: Aout - P } };
@@ -18,6 +19,7 @@ function compoundSolve(target, P, r, n, m, A) {
   }
   if (target === 'n') {
     if (!(P > 0) || !(A > 0) || !(m > 0)) return { ok: false, msg: '请填写有效的本金、目标金额、增长率、复利次数' };
+    if (!Number.isFinite(r)) return { ok: false, msg: '请填写年化增长率（求年数需要增长率）' };
     if (!baseValid(m)) return { ok: false, msg: '增长率过低，复利计算无意义（须大于 -' + (m * 100) + '%）' };
     const nn = Math.log(A / P) / (m * Math.log(1 + rd / m));
     if (!isFinite(nn) || !(nn > 0)) return { ok: false, msg: '该条件下无法达到目标金额（增长率为 0% 时需目标等于本金，负增长时需目标低于本金）' };
@@ -25,6 +27,7 @@ function compoundSolve(target, P, r, n, m, A) {
   }
   if (target === 'P') {
     if (!(A > 0) || !(n > 0) || !(m > 0)) return { ok: false, msg: '请填写有效的目标金额、年数、复利次数' };
+    if (!Number.isFinite(r)) return { ok: false, msg: '请填写年化增长率（求本金需要增长率）' };
     if (!baseValid(m)) return { ok: false, msg: '增长率过低，复利计算无意义（须大于 -' + (m * 100) + '%）' };
     const PP = A / Math.pow(1 + rd / m, m * n);
     return { ok: true, out: { P: PP } };

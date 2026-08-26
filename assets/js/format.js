@@ -9,7 +9,7 @@ function formatText(text, opt) {
     t = t.replace(/<[^>]+>/g, '');
   }
   if (getOpt('hidden')) {
-    t = t.replace(/ /g, ' '); // 不间断空格 -> 普通空格
+    t = t.replace(/\u00A0/g, ' '); // 不间断空格(NBSP) -> 普通空格
     // 零宽/不可见字符（零宽空格、连接符、BOM、词连接符、方向控制、软连字符、窄不换行空格、各类排版空格）
     t = t.replace(/[ -‏‪-‮ ⁠-⁤­﻿]/g, '');
     t = t.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g, ''); // 其它控制字符
@@ -32,7 +32,7 @@ function formatText(text, opt) {
   }
   if (getOpt('merge')) {
     // 行尾不是句末标点的，与下一行合并（修复被折断的行）
-    t = t.replace(/([^。！？!?；;：:，,、）)"'」』…》~\n])\n([^\n])/g, '$1$2');
+    t = t.replace(/([^。！？!?；;：:，,、）)"'”’」』…》~\n])\n([^\n])/g, '$1$2');
   }
   if (getOpt('quan')) {
     t = t.replace(/,/g, '，')

@@ -41,6 +41,7 @@ function calcSocialInsurance(base, ratios) {
 function calcAnnualTax(annualIncome, annualSocialIns, annualDeduction) {
   const taxable = Math.max(0, annualIncome - annualSocialIns - THRESHOLD * 12 - annualDeduction);
   const bracket = TAX_BRACKETS.find(b => taxable <= b.max);
+  if (!bracket) return { taxable, tax: 0, bracket: null };
   const tax = Math.max(0, Math.round((taxable * bracket.rate - bracket.deduct) * 100) / 100);
   return { taxable, tax, bracket };
 }
@@ -59,9 +60,10 @@ const MONTHLY_TAX_BRACKETS = [
 
 // 年终奖单独计税（除以12找税率，用全额累进）
 function calcBonusTax(bonus) {
-  if (bonus <= 0) return { tax: 0, afterTax: bonus };
+  if (!(bonus > 0)) return { tax: 0, afterTax: bonus };
   const monthlyAvg = bonus / 12;
   const bracket = MONTHLY_TAX_BRACKETS.find(b => monthlyAvg <= b.max);
+  if (!bracket) return { tax: 0, afterTax: bonus };
   const tax = Math.max(0, Math.round((bonus * bracket.rate - bracket.deduct) * 100) / 100);
   return { tax, afterTax: Math.round((bonus - tax) * 100) / 100, rate: bracket.rate };
 }
@@ -81,6 +83,7 @@ function monthlyBreakdown(monthlySalary, monthlySocialIns, monthlyDeduction) {
     cumulativeDeduction += THRESHOLD + monthlyDeduction;
     const taxable = Math.max(0, cumulativeIncome - cumulativeSocialIns - cumulativeDeduction);
     const bracket = TAX_BRACKETS.find(b => taxable <= b.max);
+    if (!bracket) { months.push({ month: m, taxable: 0, tax: 0, cumulativeTax: 0, afterTax: 0 }); continue; }
     const cumulativeTax = Math.max(0, Math.round((taxable * bracket.rate - bracket.deduct) * 100) / 100);
     const monthlyTax = Math.round((cumulativeTax - cumulativeTaxPaid) * 100) / 100;
     cumulativeTaxPaid = cumulativeTax;

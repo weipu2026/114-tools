@@ -8,7 +8,7 @@ function calcEqualInstallment(principal, annualRate, years) {
   const n = years * 12;
   if (mr === 0) {
     const mp = principal / n;
-    return { monthlyPayment: mp, totalPayment: principal, totalInterest: 0, months: n };
+    return { monthlyPayment: Math.round(mp * 100) / 100, totalPayment: Math.round(principal * 100) / 100, totalInterest: 0, months: n };
   }
   const mp = principal * mr * Math.pow(1 + mr, n) / (Math.pow(1 + mr, n) - 1);
   const total = mp * n;
@@ -107,7 +107,7 @@ if (typeof document !== 'undefined') {
 
   function render() {
     const price = parseFloat(priceEl.value) || 0;
-    const downRatio = parseFloat(downEl.value) / 100;
+    const downRatio = Math.max(0, Math.min(1, (parseFloat(downEl.value) || 0) / 100));
     const years = Math.max(1, parseInt(yearsEl.value, 10) || 30);
     const rate = parseFloat(rateEl.value) || 3.5;
     const mode = modeEl.value;

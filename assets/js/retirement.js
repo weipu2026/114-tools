@@ -29,7 +29,7 @@ function addMonths(y, m, n) {
 // 核心计算：返回法定退休、原退休、弹性提前最早、弹性延迟最晚（均为 {y, m}）
 function calcRetirement(type, y, m) {
   const rule = RETIRE_RULES[type];
-  if (!rule || !Number.isInteger(m) || m < 1 || m > 12) throw new Error('参数无效');
+  if (!rule || !Number.isInteger(y) || !Number.isInteger(m) || m < 1 || m > 12) throw new Error('参数无效');
   const delay = computeDelay(type, y, m);
   const legal = addMonths(y, m, rule.original * 12 + delay); // 法定退休年月
   const original = addMonths(y, m, rule.original * 12);      // 原法定退休年月

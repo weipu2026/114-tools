@@ -6,7 +6,7 @@ if (typeof document !== 'undefined') {
     const status = document.getElementById('status');
 
     // 当前按下的键（用 e.code 识别物理键，避免 Shift 组合时 key 变化）
-    const pressed = new Set();
+    const pressed = new Map(); // 物理键 code -> 友好显示名
     // 最近一次按下事件的详情
     let last = null;
 
@@ -44,7 +44,7 @@ if (typeof document !== 'undefined') {
     function render() {
       // 大号显示：当前按住的组合键
       if (pressed.size > 0) {
-        const combo = Array.from(pressed)
+        const combo = Array.from(pressed.values())
           .sort((a, b) => modifierRank(a) - modifierRank(b))
           .join(' + ');
         big.textContent = combo;
@@ -73,7 +73,7 @@ if (typeof document !== 'undefined') {
       const tag = (e.target && e.target.tagName) || '';
       if (/^(A|BUTTON|INPUT|SELECT|TEXTAREA)$/.test(tag) && (e.key === 'Enter' || e.key === ' ')) return;
       e.preventDefault(); // 拦截 F5 刷新、Ctrl+W 关页等
-      if (!e.repeat) pressed.add(e.code); // 用物理键 code 做键，避免 Shift 组合时 key 变化导致卡键
+      if (!e.repeat) pressed.set(e.code, keyName(e)); // code 去重键、value 存显示名，避免 Shift 组合 key 变化导致卡键
       last = e;
       render();
     }

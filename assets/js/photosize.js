@@ -43,10 +43,12 @@ function photoCalc(inch, ratio) {
   const std = PHOTO_STD[n];
   if (std) return { w: std[0], h: std[1], exact: true };
   const r = Number(ratio);
-  const safeRatio = isFinite(r) && r > 0 ? r : 1.5;
+  const safeRatio = isFinite(r) && r > 0 ? r : 1.5; // ratio = 宽/高：>1 横版、<1 竖版
   const longSide = n * INCH_MM;
-  const shortSide = longSide / safeRatio;
-  return { w: Math.round(shortSide), h: Math.round(longSide), exact: false, ratio: safeRatio };
+  let w, h;
+  if (safeRatio >= 1) { w = longSide; h = longSide / safeRatio; } // 横版：宽为长边
+  else { h = longSide; w = longSide * safeRatio; }                // 竖版：高为长边
+  return { w: Math.round(w), h: Math.round(h), exact: false, ratio: safeRatio };
 }
 
 // 毫米换算为像素
@@ -101,11 +103,11 @@ if (typeof document !== 'undefined') {
       ).join('') + '</tbody></table>';
   })();
 
-  // 渲染 1–60 寸冲印速查表（标准尺寸查表，未列入的按 3:2 推算）
+  // 渲染 1–60 寸冲印速查表（标准尺寸查表，未列入的按 2:3 竖版推算）
   (function renderPhotoTable() {
     const rows = [];
     for (let i = 1; i <= 60; i++) {
-      const r = photoCalc(i, 1.5);
+      const r = photoCalc(i, 2 / 3);
       if (!r) continue;
       rows.push(`<tr><td>${i} 寸</td><td>${fmtNum(r.w)} × ${fmtNum(r.h)}</td><td>${r.exact ? '标准' : '推算'}</td></tr>`);
     }
