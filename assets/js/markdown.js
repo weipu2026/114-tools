@@ -108,6 +108,7 @@
       case 'ul': linePrefix('- '); break;
       case 'ol': linePrefix('1. '); break;
       case 'hr': insertBlock('---'); break;
+      case 'clear': md.value = ''; render(); md.focus(); showToast('已清空'); break;
     }
   }
   document.querySelectorAll('#md-toolbar button').forEach((b) => {

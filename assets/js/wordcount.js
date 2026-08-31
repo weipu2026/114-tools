@@ -68,5 +68,12 @@ if (typeof document !== 'undefined') {
     timer = setTimeout(render, 120);
   });
 
+  document.getElementById('clear').addEventListener('click', () => {
+    textEl.value = '';
+    render();
+    textEl.focus();
+    showToast('已清空');
+  });
+
   render();
 }
