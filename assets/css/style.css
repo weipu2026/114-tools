@@ -224,6 +224,19 @@ select:focus { border-color: var(--primary); }
 
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .pane-label { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+.pane-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.pane-head .pane-label { margin-bottom: 0; }
+.pane-head button {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background var(--t), border-color var(--t);
+}
+.pane-head button:hover { background: var(--primary-soft); border-color: var(--primary); color: var(--text); }
 
 .toolbar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
 .toolbar button {
@@ -476,7 +489,7 @@ input[type="range"] { width: 100%; accent-color: var(--primary); }
   .hero { padding: 20px 0 2px; }
 }
 @media (pointer: coarse) {
-  .btn, .toolbar button, .chip, .cat-tabs button { min-height: 44px; }
+  .btn, .toolbar button, .chip, .cat-tabs button, .pane-head button { min-height: 44px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .cd-display.done { animation: none; }
