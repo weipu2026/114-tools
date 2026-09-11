@@ -37,22 +37,23 @@ if (typeof document !== 'undefined') {
   }
 
   async function render() {
+    // 内容为空时先清空，避免残留上一张二维码（同时也避免为此白等 CDN 加载）
+    const text = document.getElementById('text').value;
+    if (!text) {
+      qrWrap.innerHTML = '';
+      lastCanvas = null;
+      dlBtn.disabled = true;
+      copyBtn.disabled = true;
+      status.textContent = '请输入要生成二维码的内容。';
+      return;
+    }
     // 两个 CDN 都未加载成功时给出明确提示
     if (!(await ensureQrcode())) {
       status.textContent = '二维码库加载失败，请检查网络后刷新重试。';
       return;
     }
-    const text = document.getElementById('text').value;
     const ecl = document.getElementById('ecl').value;
     const cell = parseInt(document.getElementById('size').value, 10);
-
-    if (!text) {
-      qrWrap.innerHTML = '';
-      status.textContent = '请输入要生成二维码的内容。';
-      dlBtn.disabled = true;
-      copyBtn.disabled = true;
-      return;
-    }
     try {
       qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
       const qr = qrcode(0, ecl); // type 0 = 自动选择版本
@@ -92,7 +93,7 @@ if (typeof document !== 'undefined') {
   const textEl = document.getElementById('text');
 
   document.getElementById('gen').addEventListener('click', render);
-  textEl.addEventListener('input', () => { if (textEl.value) render(); });
+  textEl.addEventListener('input', render); // 清空时也要重绘，否则旧二维码与可点的下载按钮会残留
   // 尺寸、容错级别变更即时重绘（与文本输入行为一致）
   document.getElementById('size').addEventListener('change', () => { if (textEl.value) render(); });
   document.getElementById('ecl').addEventListener('change', () => { if (textEl.value) render(); });

@@ -1,5 +1,5 @@
 // ===== 纯函数（可在 node 中直接测试） =====
-const MU = 666.6666667; // 1 亩 = 666.667 平方米
+const MU = 2000 / 3; // 1 亩 = 666.666… 平方米（精确值 2000/3，避免用近似常数引入误差）
 
 function convertUnits(value, from) {
   const f = { mu: MU, m2: 1, ha: 10000, km2: 1000000 };

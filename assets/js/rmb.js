@@ -20,9 +20,12 @@ function rmbToChinese(input) {
 
   // 整数部分
   const intText = intToChinese(intStr, digit, unit, groupUnit);
+  const jiao = decStr === '' ? 0 : +decStr[0];
+  const fen = decStr.length > 1 ? +decStr[1] : 0;
   let text;
-  if (intText === '零' && decStr !== '') {
-    // 金额不足1元且有小数部分，省略"零元"，如 0.05 → "零伍分"
+  if (intText === '零' && (jiao > 0 || fen > 0)) {
+    // 金额不足1元且确有角/分，省略"零元"，如 0.05 → "零伍分"
+    // 0.00 / 0.0 无角也无分，须保留"零元"，输出"零元整"
     text = '';
   } else {
     text = intText + '元';
@@ -32,8 +35,6 @@ function rmbToChinese(input) {
   if (decStr === '') {
     text += '整';
   } else {
-    const jiao = +decStr[0];
-    const fen = decStr.length > 1 ? +decStr[1] : 0;
     let decText = '';
     if (jiao > 0) decText += digit[jiao] + '角';
     if (fen > 0) decText += digit[fen] + '分';

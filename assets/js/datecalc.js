@@ -28,7 +28,8 @@ function diffDays(a, b) {
 // 星期几文字
 const WEEK = ['日', '一', '二', '三', '四', '五', '六'];
 function weekText(date) {
-  return '星期' + WEEK[new Date(date.y, date.m - 1, date.d).getDay()];
+  const w = WEEK[new Date(date.y, date.m - 1, date.d).getDay()];
+  return w ? '星期' + w : '星期—'; // 日期非法时 getDay() 为 NaN，避免输出「星期undefined」
 }
 
 function fmt(date) {
@@ -42,6 +43,8 @@ if (typeof module !== 'undefined' && module.exports) {
 // ===== DOM 交互（浏览器环境） =====
 if (typeof document !== 'undefined') {
   const FORMAT_HINT = '日期格式示例：2026-08-14（也支持 2026/8/14、2026年8月14日）';
+  // 日期平移的实用上限（天）：JS Date 上限约 ±1e8 天，且 1e8 本身已越界成 Invalid Date
+  const MAX_SHIFT_DAYS = 1000000; // 约 2738 年
 
   function out(el, rows) {
     el.innerHTML = rows.map((r) => `<div class="out-row"><span>${r[0]}</span><span class="v">${r[1]}</span></div>`).join('');
@@ -59,13 +62,18 @@ if (typeof document !== 'undefined') {
       out(el, [['基准日期', fmt(a) + '（' + weekText(a) + '）'], ['提示', '天数请输入非负整数']]);
       return;
     }
-    // 上限保护：JS Date 能精确表示的范围约 ±1e8 天，超出会溢出为 Invalid Date
-    if (days > 100000000) {
-      out(el, [['基准日期', fmt(a) + '（' + weekText(a) + '）'], ['提示', '天数过大，请输入不超过 100000000 的天数']]);
+    // 上限保护：JS Date 的表示上限约 ±1e8 天（±273790 年）就会被溢出成 Invalid Date，
+    // 而 1e8 天本身已越界（2026 年往后加 1e8 天必然 Invalid），所以取一个远小于该值的实用上限。
+    if (days > MAX_SHIFT_DAYS) {
+      out(el, [['基准日期', fmt(a) + '（' + weekText(a) + '）'], ['提示', '天数过大，请输入不超过 ' + MAX_SHIFT_DAYS + ' 的天数（约 ' + Math.round(MAX_SHIFT_DAYS / 365.25) + ' 年）']]);
       return;
     }
     const dir = document.getElementById('s_dir').value === 'after' ? 1 : -1;
     const res = shiftDate(a, dir * days);
+    if (!Number.isFinite(res.y)) { // 兜底：万一仍越界，给出提示而不是「NaN 年 NaN 月」
+      out(el, [['基准日期', fmt(a) + '（' + weekText(a) + '）'], ['提示', '该天数超出可计算范围，请减小天数']]);
+      return;
+    }
     out(el, [
       ['基准日期', fmt(a) + '（' + weekText(a) + '）'],
       [days === 0 ? '计算结果' : (dir === 1 ? days + ' 天后' : days + ' 天前'), fmt(res) + '（' + weekText(res) + '）'],

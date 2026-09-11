@@ -47,6 +47,12 @@ function formatText(text, opt) {
            const prev = offset > 0 ? str[offset - 1] : '';
            const next = offset < str.length - 1 ? str[offset + 1] : '';
            if (/[0-9]/.test(prev) && /[0-9]/.test(next)) return dot; // 3.14 / 1.2.3
+           // 句号后是空白、且空白之后是中文或行尾时，同样算句末（如「结束. 下一句」）
+           if (next !== '' && /\s/.test(next)) {
+             let k = offset + 1;
+             while (k < str.length && /\s/.test(str[k])) k++;
+             if (k >= str.length || /[一-鿿]/.test(str[k])) return '。';
+           }
            if (/[一-鿿\n]/.test(next) || next === '') return '。'; // 句末句号
            return dot;
          });
