@@ -27,11 +27,11 @@
       <div id="ctrl" hidden>
         <div class="row">
           <div class="field" style="flex:2;margin-bottom:0">
-            <label>质量 <span id="qText">80%</span></label>
+            <label for="quality">质量 <span id="qText">80%</span></label>
             <input type="range" id="quality" min="10" max="100" value="80" step="5">
           </div>
           <div class="field" style="flex:1;margin-bottom:0">
-            <label>最大边</label>
+            <label for="maxEdge">最大边</label>
             <select id="maxEdge">
               <option value="0" selected>原尺寸</option>
               <option value="2048">2048px</option>
@@ -40,7 +40,7 @@
             </select>
           </div>
           <div class="field" style="flex:1;margin-bottom:0">
-            <label>格式</label>
+            <label for="format">格式</label>
             <select id="format">
               <option value="auto" selected>自动</option>
               <option value="image/jpeg">JPEG</option>

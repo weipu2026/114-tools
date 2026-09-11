@@ -54,40 +54,8 @@ function calcEqualPrincipal(principal, annualRate, years) {
   };
 }
 
-// 提前还款：部分提前还款后选择"缩短年限"或"减少月供"
-function calcPrepayment(remainingPrincipal, annualRate, remainingMonths, prepayAmount, mode) {
-  const newPrincipal = Math.max(0, remainingPrincipal - prepayAmount);
-  if (newPrincipal <= 0) return { newPrincipal: 0, newMonths: 0, newMonthly: 0, savedInterest: 0, mode };
-
-  const mr = annualRate / 100 / 12;
-  if (mr === 0) {
-    // 利率为 0：无利息，直接按剩余本金均分
-    const newMonths = mode === 'shorten' ? Math.ceil(newPrincipal / (remainingPrincipal / remainingMonths)) : remainingMonths;
-    const newMonthly = newPrincipal / newMonths;
-    return { newPrincipal, newMonths, newMonthly: Math.round(newMonthly * 100) / 100, savedInterest: 0, mode };
-  }
-  if (mode === 'shorten') {
-    // 缩短年限：月供不变
-    const oldMonthly = calcEqualInstallment(remainingPrincipal, annualRate, remainingMonths / 12).monthlyPayment;
-    // 用新本金+旧月供反求剩余月数
-    let newMonths = Math.ceil(Math.log(oldMonthly / (oldMonthly - newPrincipal * mr)) / Math.log(1 + mr));
-    if (!isFinite(newMonths) || newMonths < 1) newMonths = 1;
-    const newResult = calcEqualInstallment(newPrincipal, annualRate, newMonths / 12);
-    const oldResult = calcEqualInstallment(remainingPrincipal, annualRate, remainingMonths / 12);
-    const saved = oldResult.totalPayment - newResult.totalPayment - prepayAmount;
-    return { newPrincipal, newMonths, newMonthly: newResult.monthlyPayment, savedInterest: Math.round(saved * 100) / 100, mode };
-  } else {
-    // 减少月供：年限不变
-    const newMonths = remainingMonths;
-    const newResult = calcEqualInstallment(newPrincipal, annualRate, newMonths / 12);
-    const oldResult = calcEqualInstallment(remainingPrincipal, annualRate, remainingMonths / 12);
-    const saved = oldResult.totalPayment - newResult.totalPayment - prepayAmount;
-    return { newPrincipal, newMonths, newMonthly: newResult.monthlyPayment, savedInterest: Math.round(saved * 100) / 100, mode };
-  }
-}
-
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { calcEqualInstallment, calcEqualPrincipal, calcPrepayment };
+  module.exports = { calcEqualInstallment, calcEqualPrincipal };
 }
 
 // ===== DOM 交互（浏览器环境） =====

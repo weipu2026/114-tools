@@ -20,7 +20,7 @@
     <p class="page-sub">已知任意三项，求第四项；支持按年 / 季 / 月 / 日复利</p>
     <div class="panel">
       <div class="field">
-        <label>计算目标</label>
+        <label for="target">计算目标</label>
         <select id="target">
           <option value="A">求最终金额</option>
           <option value="r">求年化增长率</option>
@@ -30,23 +30,23 @@
       </div>
       <div class="grid2">
         <div class="field">
-          <label>本金 P（元）</label>
+          <label for="P">本金 P（元）</label>
           <input type="number" id="P" step="any" placeholder="如 10000">
         </div>
         <div class="field">
-          <label>年化增长率 r（%）</label>
+          <label for="r">年化增长率 r（%）</label>
           <input type="number" id="r" step="any" placeholder="如 8">
         </div>
         <div class="field">
-          <label>年数 n</label>
+          <label for="n">年数 n</label>
           <input type="number" id="n" step="any" placeholder="如 10">
         </div>
         <div class="field">
-          <label>复利次数 / 年 m</label>
+          <label for="m">复利次数 / 年 m</label>
           <input type="number" id="m" step="any" value="1">
         </div>
         <div class="field" style="grid-column:1 / -1">
-          <label>目标金额 A（元）</label>
+          <label for="A">目标金额 A（元）</label>
           <input type="number" id="A" step="any" placeholder="如 21589.25">
         </div>
       </div>

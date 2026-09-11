@@ -30,11 +30,11 @@
     <!-- 单位换算 -->
     <div class="tabpane active panel" data-pane="unit">
       <div class="field">
-        <label>输入数值</label>
+        <label for="u_val">输入数值</label>
         <input type="number" id="u_val" value="1" step="any">
       </div>
       <div class="field">
-        <label>单位</label>
+        <label for="u_unit">单位</label>
         <select id="u_unit">
           <option value="mu">亩</option>
           <option value="m2">平方米</option>
@@ -48,26 +48,26 @@
 
     <!-- 建筑面积 -->
     <div class="tabpane panel" data-pane="area">
-      <div class="field"><label>亩数</label><input type="number" id="a_mu" placeholder="如 10" step="any"></div>
-      <div class="field"><label>容积率</label><input type="number" id="a_far" placeholder="如 2.5" step="any"></div>
+      <div class="field"><label for="a_mu">亩数</label><input type="number" id="a_mu" placeholder="如 10" step="any"></div>
+      <div class="field"><label for="a_far">容积率</label><input type="number" id="a_far" placeholder="如 2.5" step="any"></div>
       <div class="out" id="a_out"></div>
       <div class="hint">公式：土地面积 = 亩数 × 666.667；建筑面积 = 亩数 × 666.667 × 容积率</div>
     </div>
 
     <!-- 楼面地价 -->
     <div class="tabpane panel" data-pane="floor">
-      <div class="field"><label>亩单价（万元/亩）</label><input type="number" id="f_price" placeholder="如 500" step="any"></div>
-      <div class="field"><label>容积率</label><input type="number" id="f_far" placeholder="如 2.5" step="any"></div>
+      <div class="field"><label for="f_price">亩单价（万元/亩）</label><input type="number" id="f_price" placeholder="如 500" step="any"></div>
+      <div class="field"><label for="f_far">容积率</label><input type="number" id="f_far" placeholder="如 2.5" step="any"></div>
       <div class="out" id="f_out"></div>
       <div class="hint">公式：楼面地价 = 亩单价 × 10000 ÷ (666.667 × 容积率) ≈ 亩单价 × 15 ÷ 容积率（元/㎡）</div>
     </div>
 
     <!-- 容积率 -->
     <div class="tabpane panel" data-pane="far">
-      <div class="field"><label>总建筑面积（㎡）</label><input type="number" id="r_floor" placeholder="如 25000" step="any"></div>
-      <div class="field"><label>土地面积</label><input type="number" id="r_land" placeholder="如 10" step="any"></div>
+      <div class="field"><label for="r_floor">总建筑面积（㎡）</label><input type="number" id="r_floor" placeholder="如 25000" step="any"></div>
+      <div class="field"><label for="r_land">土地面积</label><input type="number" id="r_land" placeholder="如 10" step="any"></div>
       <div class="field">
-        <label>土地面积单位</label>
+        <label for="r_unit">土地面积单位</label>
         <select id="r_unit"><option value="mu">亩</option><option value="m2">平方米</option></select>
       </div>
       <div class="out" id="r_out"></div>
@@ -76,9 +76,9 @@
 
     <!-- 地价分析 -->
     <div class="tabpane panel" data-pane="deal">
-      <div class="field"><label>亩数</label><input type="number" id="d_mu" placeholder="如 10" step="any"></div>
-      <div class="field"><label>亩单价（万元/亩）</label><input type="number" id="d_price" placeholder="如 500" step="any"></div>
-      <div class="field"><label>容积率</label><input type="number" id="d_far" placeholder="如 2.5" step="any"></div>
+      <div class="field"><label for="d_mu">亩数</label><input type="number" id="d_mu" placeholder="如 10" step="any"></div>
+      <div class="field"><label for="d_price">亩单价（万元/亩）</label><input type="number" id="d_price" placeholder="如 500" step="any"></div>
+      <div class="field"><label for="d_far">容积率</label><input type="number" id="d_far" placeholder="如 2.5" step="any"></div>
       <div class="out" id="d_out"></div>
       <div class="hint">综合计算土地总价、土地面积、楼面地价与楼面总价</div>
     </div>
