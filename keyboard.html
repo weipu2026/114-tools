@@ -11,20 +11,23 @@
 </head>
 <body>
   <header class="header">
-    <a class="brand" href="index.html">
+    <a class="brand" href="./">
     </a>
-    <a class="back" href="index.html">← 返回目录</a>
+    <a class="back" href="./">← 返回目录</a>
   </header>
   <main class="container">
     <h1 class="page-title">键盘按键检测工具</h1>
     <p class="page-sub">按下任意键，屏幕实时显示按键信息，支持组合键</p>
     <div class="panel">
       <div class="keybox" id="big">⌨️ 点击此处后按下任意键</div>
-      <div class="out" id="out"></div>
-      <div class="hint" id="status">说明：页面已拦截浏览器默认快捷键，可放心测试 F5、Ctrl+R、Ctrl+W 等；测试完请用鼠标关闭标签页。点击任意位置后按键即可生效。</div>
+      <div class="out" id="out" data-live="off"></div>
+      <div class="options">
+        <label><input type="checkbox" id="intercept"> 拦截浏览器快捷键（关掉时无法测试 F5 / Ctrl+R 的实际效果）</label>
+      </div>
+      <div class="hint" id="status">默认放行：只记录按键，不阻止 Ctrl+C 复制、Ctrl+V 粘贴、Alt+← 返回等操作。需要验证「按下会不会刷新/关页」时，勾选上面的开关。</div>
     </div>
   </main>
-  <script src="assets/js/keyboard.js"></script>
-  <script src="assets/js/ui.js"></script>
+  <script defer src="assets/js/keyboard.js"></script>
+  <script defer src="assets/js/ui.js"></script>
 </body>
 </html>
