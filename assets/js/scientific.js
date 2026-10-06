@@ -172,6 +172,7 @@ if (typeof document !== 'undefined') {
 
   function fmtNum(x) {
     if (typeof x !== 'number' || !isFinite(x)) return '';
+    if (Object.is(x, -0)) return '0'; // 避免 ± 反复切换出现「-0」
     if (Number.isInteger(x)) return String(x);
     return parseFloat(x.toPrecision(12)).toString();
   }
@@ -192,6 +193,14 @@ if (typeof document !== 'undefined') {
   }
 
   function appendText(t) {
+    // justEval 后只有「数字/小数点」才开启新表达式；运算符应接在结果之后
+    //（5+5= 后按 + 应得 10+，而不是丢掉结果只剩 +）。
+    if (justEval && !/[0-9.]/.test(t)) {
+      justEval = false;
+      expr += t;
+      refresh();
+      return;
+    }
     if (justEval) { expr = ''; justEval = false; }
     expr += t;
     refresh();
@@ -239,11 +248,15 @@ if (typeof document !== 'undefined') {
   }
 
   function flip() {
-    if (justEval) justEval = false;
+    // 不清 justEval：calc() 已把结果提交为新表达式，此时 ± 只是对它取反，
+    // 表达式仍处于「刚求值」状态 —— 紧接着按数字仍应开启新表达式（与实体计算器一致）。
     const m = expr.match(/-?(\d+\.?\d*|\.\d+)$/);
     if (m) {
       const num = m[0];
-      const f = num.startsWith('-') ? num.slice(1) : '-' + num;
+      // 取反后若数值就是 0（0 / -0 / 0.0 / -0.00），归一写成 '0'，
+      // 否则表达式栏会留下「-0」这种看着像错误的写法。
+      const flipped = Number(num) * -1;
+      const f = (flipped === 0) ? '0' : (num.startsWith('-') ? num.slice(1) : '-' + num);
       expr = expr.slice(0, expr.length - num.length) + f;
     } else {
       expr += '-';
@@ -257,7 +270,18 @@ if (typeof document !== 'undefined') {
       const v = sciEvaluate(expr, angleMode);
       if (typeof v !== 'number' || !isFinite(v)) throw new Error('无效结果');
       resEl.textContent = '= ' + fmtNum(v);
-      justEval = true;
+      // 把结果提交为新表达式：此后 ± / 运算符 / 退格 都作用在结果上
+      //（修掉 5+5 按 = 后再按 ± 变成 5+-5 的问题）。
+      // fmtNum 可能产出 1e+21 这类 tokenizer 不认的记数法，此时保留原表达式。
+      const asText = fmtNum(v);
+      try {
+        sciEvaluate(asText, angleMode);
+        expr = asText;
+        justEval = true;
+      } catch (e) {
+        // 结果无法回写成表达式，保持原样，仅标记 justEval
+        justEval = true;
+      }
     } catch (e) {
       resEl.textContent = '错误';
     }
