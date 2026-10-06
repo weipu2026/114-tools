@@ -14,31 +14,52 @@
     return converters[dir];
   }
 
-  // 主 CDN 未连上时，依次尝试备用 CDN 动态加载；用模块级 Promise 去重，避免并发重复注入
-  let openccPromise = null;
-  function ensureOpenCC() {
-    if (typeof OpenCC !== 'undefined') return Promise.resolve(true);
-    if (openccPromise) return openccPromise;
-    openccPromise = (async () => {
-      const urls = [
-        'https://cdn.jsdelivr.net/npm/opencc-js@1.4.1/dist/umd/full.js',
-        'https://unpkg.com/opencc-js@1.4.1/dist/umd/full.js'
-      ];
-      for (const u of urls) {
+  // ===== 词库按「方向」懒加载 =====
+  // 完整版 full.js 有 545.8KB（gzip），而本工具只有「简→繁」和「繁→简」两个方向。
+  // opencc-js 官方提供了按方向拆分的包，首屏 0 字节、点哪个方向下哪个包：
+  //   繁→简 t2cn.js  50.5KB（比 full.js 省 91%）
+  //   简→繁 cn2t.js 508.8KB（省 7%，因为中文→繁体词典本身就大）
+  // 两个方向都用时合计 559.3KB，与 full.js 基本持平，但首屏不再付这笔钱。
+  //
+  // 两个分包都会注册全局 OpenCC（后加载的覆盖先加载的），因此：
+  //   · 每个方向的转换器在建好后即被 converters 缓存，内部持有自己的字典，
+  //     实测在全局被覆盖后仍可反复正常使用；
+  //   · 但仍要按方向分别记录 Promise，避免重复下载。
+  const BUNDLES = {
+    s2t: { file: 'cn2t.js', label: '简转繁' },
+    t2s: { file: 't2cn.js', label: '繁转简' },
+  };
+  const CDN_HOSTS = ['https://cdn.jsdelivr.net/npm', 'https://unpkg.com'];
+  const VERSION = 'opencc-js@1.4.1/dist/umd/';
+  const loadedBundles = {};
+  const loadingPromises = {};
+
+  function loadScript(url) {
+    return new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = url;
+      s.onload = () => resolve();
+      s.onerror = () => { s.remove(); reject(new Error('load failed: ' + url)); };
+      document.head.appendChild(s);
+    });
+  }
+
+  function ensureBundle(dir) {
+    if (loadedBundles[dir]) return Promise.resolve(true);
+    if (loadingPromises[dir]) return loadingPromises[dir];
+    loadingPromises[dir] = (async () => {
+      for (const host of CDN_HOSTS) {
         try {
-          await new Promise((resolve, reject) => {
-            const s = document.createElement('script');
-            s.src = u;
-            s.onload = () => resolve();
-            s.onerror = () => { s.remove(); reject(new Error('load failed: ' + u)); };
-            document.head.appendChild(s);
-          });
-          if (typeof OpenCC !== 'undefined') return true;
-        } catch (e) { /* 尝试下一个 CDN */ }
+          await loadScript(host + '/' + VERSION + BUNDLES[dir].file);
+          if (typeof OpenCC !== 'undefined') {
+            loadedBundles[dir] = true;
+            return true;
+          }
+        } catch (e) { /* 换下一个 CDN */ }
       }
       return false;
     })();
-    return openccPromise;
+    return loadingPromises[dir];
   }
 
   async function run(dir) {
@@ -46,13 +67,10 @@
       status.textContent = '请先输入要转换的文字';
       return;
     }
-    status.textContent = '加载词库中...';
-    if (typeof OpenCC === 'undefined') {
-      const ok = await ensureOpenCC();
-      if (!ok) {
-        status.textContent = '词库加载失败，请检查网络连接后刷新重试';
-        return;
-      }
+    if (!loadedBundles[dir]) status.textContent = '加载词库中（' + BUNDLES[dir].label + '，仅首次需要）...';
+    if (!(await ensureBundle(dir))) {
+      status.textContent = '词库加载失败，请检查网络连接后刷新重试';
+      return;
     }
     try {
       const conv = getConverter(dir);
