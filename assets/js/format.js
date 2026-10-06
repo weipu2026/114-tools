@@ -4,6 +4,14 @@
 //      标题去掉 # 后单独成行（若同时开着「合并被折断的行」，补一个空行把它隔开）
 // 为什么块级行都要带「· 」：formatText 里「合并被折断的行」会把上一行结尾不是句末标点的行
 // 和下一行粘起来。给块级行一个统一的行首符号，merge 就能认出并跳过，列表/表格才不会被压成一段。
+// 取「点」所在的连续英文/数字词段（与 halfwidth.js 的 dotWord 同语义）
+function dotWord(str, offset) {
+  let a = offset, b = offset;
+  while (a > 0 && /[0-9A-Za-z.]/.test(str[a - 1])) a--;
+  while (b < str.length - 1 && /[0-9A-Za-z.]/.test(str[b + 1])) b++;
+  return str.slice(a, b + 1);
+}
+
 function stripTables(text) {
   // GFM 表格：| 表头 | + |---|---| + | 数据 | → 去竖线，单元格之间用空格连接
   const lines = String(text).split('\n');
@@ -135,6 +143,8 @@ function formatText(text, opt) {
     t = t.replace(/([^。！？!?；;：:，,、）)"'”’」』…》~\n])\n(?!\d{1,9}、)([^\n·☑☐])/g, '$1$2');
   }
   if (getOpt('quan')) {
+    // 省略号 ... → ……（必须排在句号转换之前，否则三个点会被逐个判成句末）
+    t = t.replace(/\.{3,}/g, '……');
     t = t.replace(/,/g, '，')
          .replace(/;/g, '；')
          .replace(/:/g, '：')
@@ -147,6 +157,13 @@ function formatText(text, opt) {
            const prev = offset > 0 ? str[offset - 1] : '';
            const next = offset < str.length - 1 ? str[offset + 1] : '';
            if (/[0-9]/.test(prev) && /[0-9]/.test(next)) return dot; // 3.14 / 1.2.3
+          // 英文词之间保留（扩展名 test.png / 域名 example.com / 缩写 U.S.A / e.g.）。
+          // 与 halfwidth.js 的 toFullWidthPunct 判据保持一致，改任一处须同步另一处。
+          // 左侧是数字或中日韩字符 → 中文句号语义优先（文件.txt文件 → 文件。txt文件）
+          if (/[0-9]/.test(prev) || /[぀-ヿ㐀-䶿一-鿿豈-﫿]/.test(prev)) return '。';
+          if (/[A-Za-z]/.test(next)) return dot;
+          // 英文缩写带句点（Mr. / e.g.）：点右侧是空白，但整段词含字母即英文语境
+          if (/[A-Za-z]/.test(prev) && /^[0-9A-Za-z.]+$/.test(dotWord(str, offset))) return dot;
            // 句号后是空白、且空白之后是中文或行尾时，同样算句末（如「结束. 下一句」）
            if (next !== '' && /\s/.test(next)) {
              let k = offset + 1;

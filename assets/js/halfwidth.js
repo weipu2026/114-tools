@@ -45,6 +45,14 @@ function removeExtraSpaces(text) {
   return restoreCode(t, prot.list);
 }
 
+// 取「点」所在的连续英文/数字词段（用于判断该点处于英文语境还是中文句末）
+function dotWord(str, offset) {
+  let a = offset, b = offset;
+  while (a > 0 && /[0-9A-Za-z.]/.test(str[a - 1])) a--;
+  while (b < str.length - 1 && /[0-9A-Za-z.]/.test(str[b + 1])) b++;
+  return str.slice(a, b + 1);
+}
+
 // ===== 功能二：英文标点转中文标点 =====
 function toFullWidthPunct(text) {
   const prot = protectCode(text);
@@ -91,14 +99,26 @@ function toFullWidthPunct(text) {
     .replace(/:/g, '：')
     .replace(/!/g, '！')
     .replace(/\?/g, '？')
-    // 句号：数字两侧或「数字后接空格/行尾」视为小数/序号，保留；其余转中文句号
+    // 句号判据（与 format.js 的 quan 规则保持一致，改任一处须同步另一处）：
+    //   保留 —— ① 两侧都是数字（3.14 / 1.2.3 / 192.168.1.1）
+    //        ② 英文词之间：左侧不是数字、左侧不是中日韩字符，且右侧紧跟字母
+    //           （test.png / example.com / Mr. Smith / U.S.A / e.g.）
+    //   转换 —— 其余情况，按中文句号处理（结束. 下一句 / 第1章.第2节 / 中文.）
+    // 注：左侧是中日韩字符时一律转换，让「文件.txt文件」这类中文句号语义优先。
     .replace(/\./g, (d, offset, str) => {
       const prev = offset > 0 ? str[offset - 1] : '';
       const next = offset + 1 < str.length ? str[offset + 1] : '';
       const prevDigit = /[0-9]/.test(prev);
       const nextDigit = /[0-9]/.test(next);
       const nextSpace = next === '' || /\s/.test(next);
-      return (prevDigit && (nextDigit || nextSpace)) ? '.' : '。';
+      if (prevDigit && (nextDigit || nextSpace)) return '.';
+      if (/[0-9]/.test(prev)) return '。';          // 数字左侧：只可能是句末
+      if (/[぀-ヿ㐀-䶿一-鿿豈-﫿]/.test(prev)) return '。'; // 汉字/假名：句末
+      if (/[A-Za-z]/.test(next)) return '.';        // 英文词之间（扩展名/域名/缩写）
+      // 英文缩写带句点（Mr. Smith / e.g. 这个 / i.e. 那个）：点右侧是空白，
+      // 但整段「词」里含字母，说明是英文语境而非中文句末。
+      if (/[A-Za-z]/.test(prev) && /^[0-9A-Za-z.]+$/.test(dotWord(str, offset))) return '.';
+      return '。';
     });
 
   // 双引号：成对替换为 中文引号 “”
