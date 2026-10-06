@@ -53,14 +53,17 @@
   }
 
   async function render() {
-    // marked 未能加载（含备用 CDN）：给出提示而非静默失效
-    if (!(await ensureMarked())) {
+    // marked 与 DOMPurify 是两个相互独立的 CDN 资源，必须并行加载 ——
+    // 串行 await 会让两段耗时相加（实测 load 4331ms），并行后只取较慢的那段。
+    // 两者都要到齐才能 sanitize，所以用 allSettled 一次性并发、统一判断。
+    const [markedOk, purifyOk] = await Promise.all([ensureMarked(), ensureDOMPurify()]);
+    if (!markedOk) {
       preview.textContent = 'Markdown 解析库加载失败，请检查网络后刷新。';
       return;
     }
     const raw = marked.parse(md.value);
     // DOMPurify 加载失败时绝不回退到未净化的 innerHTML（否则粘贴 HTML 会执行脚本）
-    if (!(await ensureDOMPurify())) {
+    if (!purifyOk) {
       preview.textContent = md.value;
       return;
     }
