@@ -119,7 +119,7 @@
     if (!cur || !cur.related || !cur.related.length) return;
     var links = cur.related.map(function (k) {
       var t = TOOL_MAP[k];
-      return t ? '<a class="chip" href="' + k + '.html">' + t.title + '</a>' : '';
+      return t ? '<a class="chip" href="' + k + '">' + t.title + '</a>' : '';
     }).join('');
     if (!links) return;
     var sec = document.createElement('div');
@@ -161,10 +161,19 @@
     });
   }
 
-  /* ---- 6. 无障碍：结果区供屏幕阅读器朗读（排除逐键刷新的 .preview 预览区，避免噪音） ---- */
+  /* ---- 6. 无障碍：结果区供屏幕阅读器朗读 ----
+     逐键刷新的容器必须排除，否则屏幕阅读器每按一次键就朗读整块内容：
+       · keyboard.html 的 #out（每次按键重写全部 6 行）
+       · .preview（Markdown 预览，每次输入重渲染）
+     排除方式有两种：容器自身带 data-live="off"，或命中 NO_LIVE 选择器。 */
+  var NO_LIVE = '#out[data-live="off"], .preview';
   function enhanceA11y() {
     document.querySelectorAll('.out, .result').forEach(function (el) {
-      if (!el.hasAttribute('aria-live')) el.setAttribute('aria-live', 'polite');
+      if (el.hasAttribute('aria-live')) return;
+      // 该容器自己声明不要朗读（逐键/逐输入刷新），尊重它的选择
+      if (el.getAttribute('data-live') === 'off') return;
+      if (el.matches(NO_LIVE)) return;
+      el.setAttribute('aria-live', 'polite');
     });
   }
 
